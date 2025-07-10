@@ -1,0 +1,61 @@
+{
+	"name": "Fairway PWD Dev Container",
+	"image": "fairway-pwd",
+	"mounts": [
+		"source=${localWorkspaceFolder},target=/pwd,type=bind",
+		"source=${localWorkspaceFolder}/mysql/data,target=/mysql/data,type=bind"
+	],
+	"runArgs": ["-p", "90:80", "-e", "DEV_CONTAINER=true"],
+	"forwardPorts": [80],
+	"portsAttributes": {
+		"80": {
+			"label": "Web Server (localhost:90)",
+			"onAutoForward": "notify"
+		}
+	},
+	"initializeCommand": "mkdir -p ${localWorkspaceFolder}/mysql/data",
+	"postCreateCommand": "/usr/local/bin/entrypoint.sh",
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"php.suggest.basic": false,
+				"php.validate.executablePath": "/usr/bin/php",
+				"files.associations": {
+					"*.php": "php",
+					"*.jsx": "javascriptreact",
+					"*.tsx": "typescriptreact"
+				},
+				"javascript.updateImportsOnFileMove.enabled": "always",
+				"typescript.updateImportsOnFileMove.enabled": "always",
+				"javascript.suggest.autoImports": true,
+				"typescript.suggest.autoImports": true,
+				"editor.defaultFormatter": "esbenp.prettier-vscode",
+				"[javascript]": {
+					"editor.defaultFormatter": "esbenp.prettier-vscode"
+				},
+				"[typescript]": {
+					"editor.defaultFormatter": "esbenp.prettier-vscode"
+				},
+				"[javascriptreact]": {
+					"editor.defaultFormatter": "esbenp.prettier-vscode"
+				},
+				"[typescriptreact]": {
+					"editor.defaultFormatter": "esbenp.prettier-vscode"
+				}
+			},
+			"extensions": [
+				"mikestead.dotenv",
+				"bmewburn.vscode-intelephense-client",
+				"formulahendry.auto-rename-tag",
+				"bradlc.vscode-tailwindcss",
+				"amiralizadeh9480.laravel-extra-intellisense",
+				"onecentlin.laravel-blade",
+				"austenc.laravel-blade-spacer",
+				"christian-kohler.path-intellisense",
+				"esbenp.prettier-vscode",
+				"prisma.prisma",
+				"qwtel.sqlite-viewer"
+			]
+		}
+	}
+}

@@ -1,0 +1,57 @@
+# Default server configuration for development environment
+#
+# This server block handles HTTP requests for the main application.
+# It is configured to work with PHP-FPM and follows best practices for
+# serving modern PHP applications.
+
+server {
+    # HTTP listener
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    # Root directory for the web server
+    root /var/www/html;
+
+    # Add index.php to the list of index files
+    index index.php index.html index.htm;
+
+    server_name _;
+
+    # phpMyAdmin location block
+    location /phpmyadmin/ {
+        alias /var/www/html/phpmyadmin/;
+        index index.php index.html index.htm;
+        try_files $uri $uri/ /phpmyadmin/index.php?$query_string;
+        
+        # Handle PHP files within phpMyAdmin
+        location ~ \.php$ {
+            include snippets/fastcgi-php.conf;
+            fastcgi_pass unix:/var/run/php/php8.4-fpm.sock;
+            fastcgi_param SCRIPT_FILENAME $request_filename;
+        }
+    }
+
+    # Standard location block for handling requests
+    location / {
+        # Try to serve the file directly, then as a directory,
+        # then fall back to index.php with query string arguments.
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # Pass PHP scripts to FastCGI server (PHP-FPM)
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+
+        # Use the PHP-FPM socket for PHP 8.4
+        fastcgi_pass unix:/var/run/php/php8.4-fpm.sock;
+
+        # Set a custom parameter to identify the script file
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+
+    # Deny access to .htaccess files, if Apache's document root
+    # is served by nginx
+    location ~ /\.ht {
+        deny all;
+    }
+}
