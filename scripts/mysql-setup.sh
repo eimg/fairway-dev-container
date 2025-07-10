@@ -39,6 +39,10 @@ start_services() {
     echo "Starting MySQL..."
     service mysql start
 
+    # Redis
+    echo "Starting Redis..."
+    service redis-server start
+    
     # Brief wait for MySQL to be ready
     echo "Waiting for MySQL to be ready..."
     sleep 3
@@ -57,6 +61,8 @@ print_status() {
     echo "Nginx is running on port 80"
     echo "MySQL is running on localhost (user: root, pass: root)"
     echo "MySQL data directory: /mysql/data"
+    echo "Redis is running on localhost port 6379"
+    echo "Redis data directory: /redis/data"
     echo "PHP-FPM is running"
     echo "phpMyAdmin at: http://localhost/phpmyadmin/"
     echo "Development environment is ready!"

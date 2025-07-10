@@ -1,3 +1,4 @@
 .env
 mysql/
 .DS_Store
+redis/data

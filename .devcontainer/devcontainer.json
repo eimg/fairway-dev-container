@@ -3,7 +3,8 @@
 	"image": "fairway-pwd",
 	"mounts": [
 		"source=${localWorkspaceFolder},target=/pwd,type=bind",
-		"source=${localWorkspaceFolder}/mysql/data,target=/mysql/data,type=bind"
+		"source=${localWorkspaceFolder}/mysql/data,target=/mysql/data,type=bind",
+		"source=${localWorkspaceFolder}/redis/data,target=/redis/data,type=bind"
 	],
 	"runArgs": ["-p", "90:80", "-e", "DEV_CONTAINER=true"],
 	"forwardPorts": [80],
@@ -13,7 +14,7 @@
 			"onAutoForward": "notify"
 		}
 	},
-	"initializeCommand": "mkdir -p ${localWorkspaceFolder}/mysql/data",
+	"initializeCommand": "mkdir -p ${localWorkspaceFolder}/mysql/data && mkdir -p ${localWorkspaceFolder}/redis/data",
 	"postCreateCommand": "/usr/local/bin/entrypoint.sh",
 	"customizations": {
 		"vscode": {

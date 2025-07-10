@@ -74,7 +74,7 @@ RUN echo "mysql-server mysql-server/root_password_again password root" | debconf
 RUN apt-get install -y mysql-server
 
 # Create workspace data directory
-RUN mkdir -p /mysql/data
+RUN mkdir -p /mysql/data && mkdir -p /redis/data
 
 # Fix MySQL user home directory to prevent su warnings
 RUN mkdir -p /var/lib/mysql && \
@@ -120,6 +120,12 @@ RUN wget https://files.phpmyadmin.net/phpMyAdmin/5.2.1/phpMyAdmin-5.2.1-all-lang
 
 # Copy phpMyAdmin configuration
 COPY phpmyadmin/config.inc.php /var/www/html/phpmyadmin/config.inc.php
+
+# Redis
+RUN apt-get install -y redis && \
+    systemctl enable redis-server
+COPY redis/redis.conf /etc/redis/redis.conf 
+RUN chown redis:redis /etc/redis/redis.conf
 
 # Adjust ownership for web server
 RUN chown -R www-data:www-data /var/www/html/phpmyadmin
