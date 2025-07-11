@@ -2,7 +2,6 @@
 	"name": "Fairway PWD Dev Container",
 	"image": "fairway-pwd",
 	"mounts": [
-		"source=${localWorkspaceFolder},target=/workspaces,type=bind",
 		"source=${localWorkspaceFolder}/mysql/data,target=/mysql/data,type=bind",
 		"source=${localWorkspaceFolder}/redis/data,target=/redis/data,type=bind"
 	],

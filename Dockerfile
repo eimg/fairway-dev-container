@@ -88,7 +88,7 @@ RUN echo "mysql-server mysql-server/root_password password root" | debconf-set-s
 RUN echo "mysql-server mysql-server/root_password_again password root" | debconf-set-selections
 RUN apt-get install -y mysql-server
 
-# Create workspace data directory
+# Create data directories
 RUN mkdir -p /mysql/data && mkdir -p /redis/data
 
 # Fix MySQL user home directory to prevent su warnings
@@ -144,9 +144,6 @@ RUN chown redis:redis /etc/redis/redis.conf
 # Adjust ownership for web server
 RUN chown -R www-data:www-data /var/www/html/phpmyadmin
 
-# Working Directory Setup
-# Files are mounted to /workspaces via volume mount
-
 # Final Setup & Startup Command
 # Clean up apt cache to reduce image size.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -166,7 +163,7 @@ EXPOSE 80
 EXPOSE 8081 19000 19001 19002 8097 4000 3000
 
 # Set the working directory
-WORKDIR /workspaces
+WORKDIR /app
 
 # Startup Command
 CMD ["/usr/local/bin/entrypoint.sh"]

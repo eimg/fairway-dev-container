@@ -75,7 +75,7 @@ docker build -t fairway-pwd .
         -p 8081:8081 \
         -p 19000:19000 \
         -p 3000:3000 \
-        -v "$(pwd):/workspaces" \
+        -v "$(pwd):/app" \
         -v "$(pwd)/mysql/data:/mysql/data" \
         -v "$(pwd)/redis/data:/redis/data" \
         fairway-pwd
@@ -175,7 +175,9 @@ Add to `customizations.vscode.extensions` in `.devcontainer/devcontainer.json`.
 
 ## File Structure
 
--   **Project files**: Mounted to `/workspaces`
+-   **Project files**: Mounted to 
+    -   `/workspaces` when using VS Code Dev Container
+    -   `/app` when using Docker directly
 -   **Web root**: `/var/www/html`
 -   **MySQL data**: `/mysql/data` (persisted via volume)
 -   **Redis data**: `/redis/data` (persisted via volume)
