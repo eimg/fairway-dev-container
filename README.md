@@ -87,6 +87,15 @@ cd my-project
 composer run dev
 ```
 
+**Redis Configuration for Laravel:**
+```bash
+# In your .env file
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=root
+REDIS_PORT=6379
+REDIS_USERNAME=root
+```
+
 ### React Native & Expo Development
 
 This container supports React Native and Expo development with universal networking that works with both Android emulator and iOS simulator out of the box.
@@ -152,19 +161,6 @@ Edit `.devcontainer/devcontainer.json`:
 Add to `customizations.vscode.extensions` in `.devcontainer/devcontainer.json`.
 
 ## File Structure
-
-### What's Included
-
--   **OS**: Ubuntu 24.04 LTS
--   **PHP**: 8.4 with FPM and common extensions
--   **Web Server**: Nginx
--   **Database**: MySQL 8.0
--   **Cache**: Redis 7.0.15
--   **Node.js**: 22 with npm
--   **Tools**: Composer, phpMyAdmin
--   **Dev Tools**: Git, curl, nano, tree
-
-### File Structure
 
 -   **Project files**: Mounted to `/workspaces`
 -   **Web root**: `/var/www/html`

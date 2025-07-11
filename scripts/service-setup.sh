@@ -26,6 +26,15 @@ setup_mysql() {
     fi
 }
 
+setup_redis() {
+    # Ensure proper ownership of the Redis data directory
+    echo "Setting proper ownership for Redis data directory..."
+    mkdir -p /redis/data
+    chown -R redis:redis /redis/data
+    chmod 750 /redis/data
+    echo "Redis data directory setup completed."
+}
+
 start_services() {
     # PHP-FPM
     echo "Starting PHP-FPM..."
@@ -42,9 +51,9 @@ start_services() {
     # Redis
     echo "Starting Redis..."
     service redis-server start
-    
-    # Brief wait for MySQL to be ready
-    echo "Waiting for MySQL to be ready..."
+
+    # Brief wait for services to be ready
+    echo "Waiting for services to be ready..."
     sleep 3
 }
 
@@ -59,12 +68,12 @@ configure_mysql_password() {
 print_status() {
     echo "All services started successfully!"
     echo "Nginx is running on port 80"
-    echo "MySQL is running on localhost (user: root, pass: root)"
+    echo "MySQL is running on localhost (root/root)"
     echo "MySQL data directory: /mysql/data"
-    echo "Redis is running on localhost port 6379"
+    echo "Redis is running on localhost port 6379 (root/root)"
     echo "Redis data directory: /redis/data"
     echo "PHP-FPM is running"
     echo "phpMyAdmin at: http://localhost/phpmyadmin/"
     echo ""
     echo "Development environment is ready!"
-}
+} 

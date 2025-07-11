@@ -112,6 +112,15 @@ cd my-project
 composer run dev
 ```
 
+**Redis Configuration:**
+```bash
+# In your .env file
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=root
+REDIS_PORT=6379
+REDIS_USERNAME=root
+```
+
 ### React Native & Expo
 ```bash
 # Create new Expo project
@@ -124,7 +133,7 @@ npx expo start
 
 - **Web Server**: Port 80 (Nginx + PHP-FPM)
 - **MySQL**: Internal only (use phpMyAdmin or connect from app)
-- **Redis**: Internal only (connect from app)
+- **Redis**: Internal only (root/root - connect from app)
 - **MySQL**: Internal only (root/root - use phpMyAdmin)
 - **phpMyAdmin**: /phpmyadmin (auto-login as root)
 - **Metro Bundler**: Port 8081 (React Native)

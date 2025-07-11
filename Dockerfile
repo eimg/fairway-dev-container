@@ -137,8 +137,7 @@ RUN wget https://files.phpmyadmin.net/phpMyAdmin/5.2.1/phpMyAdmin-5.2.1-all-lang
 COPY phpmyadmin/config.inc.php /var/www/html/phpmyadmin/config.inc.php
 
 # Redis
-RUN apt-get install -y redis && \
-    systemctl enable redis-server
+RUN apt-get install -y redis-server
 COPY redis/redis.conf /etc/redis/redis.conf 
 RUN chown redis:redis /etc/redis/redis.conf
 
@@ -152,9 +151,9 @@ RUN chown -R www-data:www-data /var/www/html/phpmyadmin
 # Clean up apt cache to reduce image size.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Copy the shared MySQL setup functions
-COPY scripts/mysql-setup.sh /usr/local/bin/mysql-setup.sh
-RUN chmod +x /usr/local/bin/mysql-setup.sh
+# Copy the shared service setup functions
+COPY scripts/service-setup.sh /usr/local/bin/service-setup.sh
+RUN chmod +x /usr/local/bin/service-setup.sh
 
 # Copy the entrypoint script and make it executable
 COPY scripts/entrypoint.sh /usr/local/bin/entrypoint.sh

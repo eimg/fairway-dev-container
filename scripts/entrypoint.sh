@@ -1,11 +1,12 @@
 #!/bin/bash
 set -e
 
-source /usr/local/bin/mysql-setup.sh
+source /usr/local/bin/service-setup.sh
 
 echo "Starting development services..."
 
 setup_mysql
+setup_redis
 start_services
 
 # Configure MySQL root password
