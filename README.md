@@ -111,18 +111,40 @@ REDIS_USERNAME=root
 
 ### React Native & Expo Development
 
-This container supports React Native and Expo development with universal networking that works with both Android emulator and iOS simulator out of the box.
+This container supports React Native and Expo development. For optimal compatibility with both iOS simulator and Android emulator, you need to set the `REACT_NATIVE_PACKAGER_HOSTNAME` to your host machine's IP address.
 
 **Available Ports:**
 - **8081**: Metro Bundler
 - **19000-19002**: Expo DevTools
 - **3000, 4000**: Development servers
 
+**Getting Your Host IP Address:**
+
+**Windows:**
+```bash
+ipconfig | findstr "IPv4"
+```
+
+**macOS:**
+```bash
+ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}'
+```
+
+**Linux:**
+```bash
+hostname -I | awk '{print $1}'
+# or
+ip route get 1.1.1.1 | grep -oP 'src \K\S+'
+```
+
 **Usage:**
 ```bash
 # Create new projects
 npx create-expo-app@latest MyApp
 cd MyApp
+
+# Set your host IP (replace with your actual IP)
+export REACT_NATIVE_PACKAGER_HOSTNAME=192.168.1.100
 
 # Start development servers
 npx expo start
@@ -134,7 +156,7 @@ npx expo start --tunnel
 
 **Environment Variables:**
 - `EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0` - External connections
-- `REACT_NATIVE_PACKAGER_HOSTNAME=0.0.0.0` - Universal compatibility
+- `REACT_NATIVE_PACKAGER_HOSTNAME=<your-host-ip>` - Set to your host machine's IP for both iOS and Android compatibility
 
 
 ### Vite Projects

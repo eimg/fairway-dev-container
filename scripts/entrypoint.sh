@@ -3,7 +3,10 @@ set -e
 
 source /usr/local/bin/service-setup.sh
 
-echo "Starting development services..."
+echo ""
+echo "🐳 Fairway Development Container"
+echo ""
+echo "➜ Starting development services..."
 
 setup_mysql
 setup_redis
@@ -16,6 +19,8 @@ print_status
 
 # Keep the container running
 if [ "${DEV_CONTAINER:-false}" != "true" ]; then
+    echo ""
+    echo "🔄 Standalone Mode"
     echo "Running in standalone mode, keeping container alive..."
     tail -f /dev/null
 fi
