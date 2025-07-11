@@ -1,12 +1,12 @@
 # Complete PHP & JavaScript Development Environment
 
-All-in-one development environment container with PHP 8.4, Nginx, MySQL 8.0, Node.js 22, and phpMyAdmin. Perfect for rapid development and prototyping.
+All-in-one development environment container with PHP 8.4, Nginx, MySQL 8.0, Redis 7.0.15, Node.js 22, and phpMyAdmin. Perfect for rapid development and prototyping.
 
 ## Quick Start
 
 ```bash
 # Create data directory
-mkdir -p mysql/data
+mkdir -p mysql/data && mkdir -p redis/data
 
 # Run container
 docker run -d \
@@ -16,6 +16,7 @@ docker run -d \
   -p 3000:3000 \
   -v "$(pwd):/workspaces" \
   -v "$(pwd)/mysql/data:/mysql/data" \
+  -v "$(pwd)/redis/data:/redis/data" \
   fairway-pwd
 ```
 
@@ -53,6 +54,7 @@ Starting a new project? Use this pre-built image:
 - **PHP 8.4** with FPM and 20+ extensions (MySQL, GD, cURL, XML, etc.)
 - **Nginx** web server with optimized configuration
 - **MySQL 8.0** with persistent data storage
+- **Redis 7.0** with persistent data storage
 - **Node.js 22** with npm for modern frontend tooling
 - **phpMyAdmin** for database management
 - **Composer** for PHP dependency management
@@ -64,6 +66,7 @@ Starting a new project? Use this pre-built image:
 
 - **Zero Configuration**: Services start automatically
 - **Persistent Data**: MySQL data survives container restarts
+- **Persistent Data**: Redis data survives container restarts
 - **VS Code Ready**: Built-in dev container support
 - **Universal Networking**: Works with Android emulator & iOS simulator
 - **Multi-Framework**: PHP/Laravel, Node, React Native/Expo development
@@ -85,6 +88,7 @@ docker run -d \
   -p 90:80 \
   -v "$(pwd):/workspaces" \
   -v "$(pwd)/mysql/data:/mysql/data" \
+  -v "$(pwd)/redis/data:/redis/data" \
   fairway-pwd
 ```
 
@@ -94,6 +98,7 @@ docker run -d \
   -p 90:80 -p 8081:8081 -p 19000:19000 -p 3000:3000 \
   -v "$(pwd):/workspaces" \
   -v "$(pwd)/mysql/data:/mysql/data" \
+  -v "$(pwd)/redis/data:/redis/data" \
   fairway-pwd
 ```
 
@@ -117,7 +122,9 @@ npx expo start
 
 ## Services & Ports
 
-- **Web Server**: Port 90 (Nginx + PHP-FPM)
+- **Web Server**: Port 80 (Nginx + PHP-FPM)
+- **MySQL**: Internal only (use phpMyAdmin or connect from app)
+- **Redis**: Internal only (connect from app)
 - **MySQL**: Internal only (root/root - use phpMyAdmin)
 - **phpMyAdmin**: /phpmyadmin (auto-login as root)
 - **Metro Bundler**: Port 8081 (React Native)

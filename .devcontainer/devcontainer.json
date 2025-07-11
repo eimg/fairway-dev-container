@@ -3,7 +3,8 @@
 	"image": "fairway-pwd",
 	"mounts": [
 		"source=${localWorkspaceFolder},target=/workspaces,type=bind",
-		"source=${localWorkspaceFolder}/mysql/data,target=/mysql/data,type=bind"
+		"source=${localWorkspaceFolder}/mysql/data,target=/mysql/data,type=bind",
+		"source=${localWorkspaceFolder}/mysql/config,target=/redis/data,type=bind"
 	],
 	"runArgs": [
 		"-p", "90:80", 

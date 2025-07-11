@@ -1,6 +1,6 @@
 # Complete PHP & JavaScript Development Environment
 
-All-in-one development environment container with PHP 8.4, Nginx, MySQL 8.0, Node.js 22, and phpMyAdmin. Perfect for rapid development and prototyping.
+All-in-one development environment container with PHP 8.4, Nginx, MySQL 8.0, Redis 7.0.15, Node.js 22, and phpMyAdmin. Perfect for rapid development and prototyping.
 
 ## What's Included
 
@@ -8,6 +8,7 @@ All-in-one development environment container with PHP 8.4, Nginx, MySQL 8.0, Nod
 -   **PHP**: 8.4 with FPM and common extensions
 -   **Web Server**: Nginx
 -   **Database**: MySQL 8.0
+-   **Cache**: Redis 7.0.15
 -   **Node.js**: 22 with npm
 -   **Tools**: Composer, phpMyAdmin
 -   **Dev Tools**: Git, curl, nano, tree
@@ -24,22 +25,27 @@ docker build -t fairway-pwd .
 
 1. **Create MySQL data directory**:
     ```bash
-    mkdir -p mysql/data
+    mkdir -p mysql/data 
     ```
-
-2. **Run container**:
+2. **Create Redis data directory**:
+    ```bash
+    mkdir -p redis/data 
+    ```
+3. **Run container**:
     ```bash
     docker run -d \
       -p 90:80 \
       -v "$(pwd):/workspaces" \
       -v "$(pwd)/mysql/data:/mysql/data" \
+      -v "$(pwd)/redis/data:/redis/data" \
       fairway-pwd
     ```
 
-3. **Access services**:
+4. **Access services**:
     - Web Server: http://localhost:90
     - phpMyAdmin: http://localhost:90/phpmyadmin
     - MySQL: Available inside container (root/root)
+    - Redis: Availabe inside container (root/root)
 
 ## Starting New Project
 
@@ -147,14 +153,29 @@ Add to `customizations.vscode.extensions` in `.devcontainer/devcontainer.json`.
 
 ## File Structure
 
+### What's Included
+
+-   **OS**: Ubuntu 24.04 LTS
+-   **PHP**: 8.4 with FPM and common extensions
+-   **Web Server**: Nginx
+-   **Database**: MySQL 8.0
+-   **Cache**: Redis 7.0.15
+-   **Node.js**: 22 with npm
+-   **Tools**: Composer, phpMyAdmin
+-   **Dev Tools**: Git, curl, nano, tree
+
+### File Structure
+
 -   **Project files**: Mounted to `/workspaces`
 -   **Web root**: `/var/www/html`
 -   **MySQL data**: `/mysql/data` (persisted via volume)
+-   **Redis data**: `/redis/data` (persisted via volume)
 -   **Configuration**: `nginx/`, `phpmyadmin/`, `scripts/`
 
 ## Important Notes
 
 -   Container runs as root for development simplicity
 -   MySQL only accessible from inside container
+-   Redis only accessible from inside container
 -   Use phpMyAdmin for database management
 -   Terminal shows `🐳 dev` indicator when in dev container
