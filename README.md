@@ -1,6 +1,6 @@
 # Complete PHP & JavaScript Development Environment
 
-All-in-one development environment container with PHP 8.4, Nginx, MySQL 8.0, Redis 7.0.15, Node.js 22, and phpMyAdmin. Perfect for rapid development and prototyping.
+All-in-one development environment container with PHP 8.4, Nginx, MySQL 8.0, Redis 7.0, Node.js 22, and phpMyAdmin. Perfect for rapid development and prototyping.
 
 ## What's Included
 
@@ -21,7 +21,7 @@ All-in-one development environment container with PHP 8.4, Nginx, MySQL 8.0, Red
 docker build -t fairway-pwd .
 ```
 
-### Run with Docker Directly
+### Run with Docker
 
 1. **Create MySQL data directory**:
     ```bash
@@ -34,11 +34,14 @@ docker build -t fairway-pwd .
 3. **Run container**:
     ```bash
     docker run -d \
-      -p 90:80 \
-      -v "$(pwd):/workspaces" \
-      -v "$(pwd)/mysql/data:/mysql/data" \
-      -v "$(pwd)/redis/data:/redis/data" \
-      fairway-pwd
+        -p 90:80 \
+        -p 8081:8081 \
+        -p 19000:19000 \
+        -p 3000:3000 \
+        -v "$(pwd):/workspaces" \
+        -v "$(pwd)/mysql/data:/mysql/data" \
+        -v "$(pwd)/redis/data:/redis/data" \
+        fairway-pwd
     ```
 
 4. **Access services**:

@@ -1,30 +1,52 @@
 # Complete PHP & JavaScript Development Environment
 
-All-in-one development environment container with PHP 8.4, Nginx, MySQL 8.0, Redis 7.0.15, Node.js 22, and phpMyAdmin. Perfect for rapid development and prototyping.
+All-in-one development environment container with PHP 8.4, Nginx, MySQL 8.0, Redis 7.0, Node.js 22, and phpMyAdmin. Perfect for rapid development and prototyping.
+
+## What's Included
+
+-   **OS**: Ubuntu 24.04 LTS with zsh + oh-my-zsh
+-   **PHP**: 8.4 with FPM and common extensions
+-   **Web Server**: Nginx
+-   **Database**: MySQL 8.0
+-   **Cache**: Redis 7.0.15
+-   **Node.js**: 22 with npm
+-   **Tools**: Composer, phpMyAdmin
+-   **Dev Tools**: Git, curl, nano, tree
 
 ## Quick Start
 
-```bash
-# Create data directory
-mkdir -p mysql/data && mkdir -p redis/data
+### Run with Docker
 
-# Run container
-docker run -d \
-  -p 90:80 \
-  -p 8081:8081 \
-  -p 19000:19000 \
-  -p 3000:3000 \
-  -v "$(pwd):/workspaces" \
-  -v "$(pwd)/mysql/data:/mysql/data" \
-  -v "$(pwd)/redis/data:/redis/data" \
-  fairway-pwd
-```
+1. **Create MySQL data directory**:
+    ```bash
+    mkdir -p mysql/data 
+    ```
+2. **Create Redis data directory**:
+    ```bash
+    mkdir -p redis/data 
+    ```
+3. **Run container**:
+    ```bash
+    docker run -d \
+        -p 90:80 \
+        -p 8081:8081 \
+        -p 19000:19000 \
+        -p 3000:3000 \
+        -v "$(pwd):/workspaces" \
+        -v "$(pwd)/mysql/data:/mysql/data" \
+        -v "$(pwd)/redis/data:/redis/data" \
+        fairway-pwd
+    ```
 
-Access your environment at http://localhost:90 and phpMyAdmin at http://localhost:90/phpmyadmin
+4. **Access services**:
+    - Web Server: http://localhost:90
+    - phpMyAdmin: http://localhost:90/phpmyadmin
+    - MySQL: Available inside container (root/root)
+    - Redis: Availabe inside container (root/root)
 
 ## Starting New Project
 
-Starting a new project? Use this pre-built image:
+Starting a new project? Use the pre-built image from Docker Hub:
 
 1. **Pull the image**:
    ```bash
@@ -49,62 +71,12 @@ Starting a new project? Use this pre-built image:
 
 5. **Ready to go!** All services start automatically, and you can begin development immediately.
 
-## What's Included
-
-- **PHP 8.4** with FPM and 20+ extensions (MySQL, GD, cURL, XML, etc.)
-- **Nginx** web server with optimized configuration
-- **MySQL 8.0** with persistent data storage
-- **Redis 7.0** with persistent data storage
-- **Node.js 22** with npm for modern frontend tooling
-- **phpMyAdmin** for database management
-- **Composer** for PHP dependency management
-- **React Native & Expo** support with universal networking
-- **Development tools**: Git, curl, nano, tree, build-essential
-- **Shell**: zsh + oh-my-zsh with dev container indicator
-
-## Key Features
-
-- **Zero Configuration**: Services start automatically
-- **Persistent Data**: MySQL data survives container restarts
-- **Persistent Data**: Redis data survives container restarts
-- **VS Code Ready**: Built-in dev container support
-- **Universal Networking**: Works with Android emulator & iOS simulator
-- **Multi-Framework**: PHP/Laravel, Node, React Native/Expo development
-
-## Perfect For
-
-- **Full-Stack Projects**
-- **Laravel Projects**
-- **React Projects**
-- **Node Back-end Projects**
-- **React Native/Expo Projects**
-- **Quick Development Environment**
-
-## Usage Examples
-
-### Basic Usage
-```bash
-docker run -d \
-  -p 90:80 \
-  -v "$(pwd):/workspaces" \
-  -v "$(pwd)/mysql/data:/mysql/data" \
-  -v "$(pwd)/redis/data:/redis/data" \
-  fairway-pwd
-```
-
-### With React Native/Expo Support
-```bash
-docker run -d \
-  -p 90:80 -p 8081:8081 -p 19000:19000 -p 3000:3000 \
-  -v "$(pwd):/workspaces" \
-  -v "$(pwd)/mysql/data:/mysql/data" \
-  -v "$(pwd)/redis/data:/redis/data" \
-  fairway-pwd
-```
-
 ## More Information
 
-### Laravel
+### Laravel Development
+
+This container does not include the Laravel installer as a global Composer package. We recommend using the `composer create-project` approach.
+
 ```bash
 # Create new Laravel project
 composer create-project laravel/laravel my-project
@@ -112,7 +84,7 @@ cd my-project
 composer run dev
 ```
 
-**Redis Configuration:**
+**Redis Configuration for Laravel:**
 ```bash
 # In your .env file
 REDIS_HOST=127.0.0.1
@@ -121,39 +93,82 @@ REDIS_PORT=6379
 REDIS_USERNAME=root
 ```
 
-### React Native & Expo
+### React Native & Expo Development
+
+This container supports React Native and Expo development with universal networking that works with both Android emulator and iOS simulator out of the box.
+
+**Available Ports:**
+- **8081**: Metro Bundler
+- **19000-19002**: Expo DevTools
+- **3000, 4000**: Development servers
+
+**Quick Start:**
 ```bash
-# Create new Expo project
+# Create new projects
 npx create-expo-app@latest MyApp
 cd MyApp
+
+# Start development servers
 npx expo start
+
+# For tunneling (if needed)
+npm install @expo/ngrok
+npx expo start --tunnel
 ```
 
-## Services & Ports
-
-- **Web Server**: Port 80 (Nginx + PHP-FPM)
-- **MySQL**: Internal only (use phpMyAdmin or connect from app)
-- **Redis**: Internal only (root/root - connect from app)
-- **MySQL**: Internal only (root/root - use phpMyAdmin)
-- **phpMyAdmin**: /phpmyadmin (auto-login as root)
-- **Metro Bundler**: Port 8081 (React Native)
-- **Expo DevTools**: Ports 19000-19002
-- **Development Servers**: Ports 3000, 4000
-
-## Environment Variables
-
+**Environment Variables:**
 - `EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0` - External connections
 - `REACT_NATIVE_PACKAGER_HOSTNAME=0.0.0.0` - Universal compatibility
 
-## Configuration Notes
 
-**Vite Projects**: Add `host: "0.0.0.0"` to vite.config.js for proper port forwarding
-**Terminal**: Shows `🐳 dev` indicator when in container
+### Vite Projects
+Vite (used in React SPA and Laravel) requires specific host configuration for VS Code dev container port forwarding:
 
-## Tags
+```javascript
+// vite.config.js
+export default {
+    server: {
+        host: "0.0.0.0",
+    },
+};
+```
 
-- `latest` - Latest stable build
+**Why this is needed:**
+- Vite defaults to `localhost` which only accepts local connections
+- Dev containers need `0.0.0.0` to accept connections from VS Code's port forwarding
+- Without this setting, "Open in Browser" won't work automatically
 
----
+## Customization
 
-Perfect for developers who want to focus on coding, not environment setup! 🚀 
+### Change Port Mapping
+
+Edit `.devcontainer/devcontainer.json`:
+```json
+"runArgs": ["-p", "8080:80", "-e", "DEV_CONTAINER=true"]
+```
+
+### Add Environment Variables
+
+```json
+"runArgs": ["-p", "90:80", "-e", "DEV_CONTAINER=true", "-e", "YOUR_VAR=value"]
+```
+
+### Additional VS Code Extensions
+
+Add to `customizations.vscode.extensions` in `.devcontainer/devcontainer.json`.
+
+## File Structure
+
+-   **Project files**: Mounted to `/workspaces`
+-   **Web root**: `/var/www/html`
+-   **MySQL data**: `/mysql/data` (persisted via volume)
+-   **Redis data**: `/redis/data` (persisted via volume)
+-   **Configuration**: `nginx/`, `phpmyadmin/`, `scripts/`
+
+## Important Notes
+
+-   Container runs as root for development simplicity
+-   MySQL only accessible from inside container
+-   Redis only accessible from inside container
+-   Use phpMyAdmin for database management
+-   Terminal shows `🐳 dev` indicator when in dev container
