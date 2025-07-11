@@ -2,26 +2,36 @@
 
 All-in-one development environment container with PHP 8.4, Nginx, MySQL 8.0, Node.js 22, and phpMyAdmin. Perfect for rapid development and prototyping.
 
-## Build Image
+## What's Included
+
+-   **OS**: Ubuntu 24.04 LTS with zsh + oh-my-zsh
+-   **PHP**: 8.4 with FPM and common extensions
+-   **Web Server**: Nginx
+-   **Database**: MySQL 8.0
+-   **Node.js**: 22 with npm
+-   **Tools**: Composer, phpMyAdmin
+-   **Dev Tools**: Git, curl, nano, tree
+
+## Quick Start
+
+### Build Image
 
 ```bash
 docker build -t fairway-pwd .
 ```
 
-## Run with Docker Directly
+### Run with Docker Directly
 
 1. **Create MySQL data directory**:
-
     ```bash
     mkdir -p mysql/data
     ```
 
 2. **Run container**:
-
     ```bash
     docker run -d \
       -p 90:80 \
-      -v "$(pwd):/pwd" \
+      -v "$(pwd):/workspaces" \
       -v "$(pwd)/mysql/data:/mysql/data" \
       fairway-pwd
     ```
@@ -31,23 +41,96 @@ docker build -t fairway-pwd .
     - phpMyAdmin: http://localhost:90/phpmyadmin
     - MySQL: Available inside container (root/root)
 
-## Run with VS Code Dev Container
+## Starting New Project
 
-1. **Open in VS Code**: `code .`
-2. **Reopen in Container**: Command Palette → "Dev Containers: Reopen in Container"
-3. **Auto-setup**: All services start automatically
+Starting a new project? Use the pre-built image from Docker Hub:
 
-**Access services** (same as above but port mapping handled automatically):
+1. **Pull the image**:
+   ```bash
+   docker pull fairway-pwd
+   ```
 
--   Web Server: http://localhost:90
--   phpMyAdmin: http://localhost:90/phpmyadmin
+2. **Copy devcontainer config**:
+   ```bash
+   # Create .devcontainer directory
+   mkdir -p .devcontainer
+   
+   # Download devcontainer.json from GitHub
+   curl -o .devcontainer/devcontainer.json https://raw.githubusercontent.com/eimg/fairway-dev-container/main/.devcontainer/devcontainer.json
+   ```
 
-## Customization for VS Code Dev Container
+3. **Open in VS Code**:
+   ```bash
+   code .
+   ```
+
+4. **Reopen in Container**: Command Palette → "Dev Containers: Reopen in Container"
+
+5. **Ready to go!** All services start automatically, and you can begin development immediately.
+
+## More Information
+
+### Laravel Development
+
+This container does not include the Laravel installer as a global Composer package. We recommend using the `composer create-project` approach.
+
+```bash
+# Create new Laravel project
+composer create-project laravel/laravel my-project
+cd my-project
+composer run dev
+```
+
+### React Native & Expo Development
+
+This container supports React Native and Expo development with universal networking that works with both Android emulator and iOS simulator out of the box.
+
+**Available Ports:**
+- **8081**: Metro Bundler
+- **19000-19002**: Expo DevTools
+- **3000, 4000**: Development servers
+
+**Quick Start:**
+```bash
+# Create new projects
+npx create-expo-app@latest MyApp
+cd MyApp
+
+# Start development servers
+npx expo start
+
+# For tunneling (if needed)
+npm install @expo/ngrok
+npx expo start --tunnel
+```
+
+**Environment Variables:**
+- `EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0` - External connections
+- `REACT_NATIVE_PACKAGER_HOSTNAME=0.0.0.0` - Universal compatibility
+
+
+### Vite Projects
+Vite (used in React SPA and Laravel) requires specific host configuration for VS Code dev container port forwarding:
+
+```javascript
+// vite.config.js
+export default {
+    server: {
+        host: "0.0.0.0",
+    },
+};
+```
+
+**Why this is needed:**
+- Vite defaults to `localhost` which only accepts local connections
+- Dev containers need `0.0.0.0` to accept connections from VS Code's port forwarding
+- Without this setting, "Open in Browser" won't work automatically
+
+## Customization
 
 ### Change Port Mapping
 
 Edit `.devcontainer/devcontainer.json`:
-
 ```json
 "runArgs": ["-p", "8080:80", "-e", "DEV_CONTAINER=true"]
 ```
@@ -62,27 +145,16 @@ Edit `.devcontainer/devcontainer.json`:
 
 Add to `customizations.vscode.extensions` in `.devcontainer/devcontainer.json`.
 
-## More Information
+## File Structure
 
-### What's Included
-
--   **OS**: Ubuntu 24.04 LTS
--   **PHP**: 8.4 with FPM and common extensions
--   **Web Server**: Nginx
--   **Database**: MySQL 8.0
--   **Node.js**: 22 with npm
--   **Tools**: Composer, phpMyAdmin
--   **Dev Tools**: Git, curl, nano, tree
-
-### File Structure
-
--   **Project files**: Mounted to `/pwd`
+-   **Project files**: Mounted to `/workspaces`
 -   **Web root**: `/var/www/html`
 -   **MySQL data**: `/mysql/data` (persisted via volume)
 -   **Configuration**: `nginx/`, `phpmyadmin/`, `scripts/`
 
-### Important Notes
+## Important Notes
 
 -   Container runs as root for development simplicity
 -   MySQL only accessible from inside container
 -   Use phpMyAdmin for database management
+-   Terminal shows `🐳 dev` indicator when in dev container

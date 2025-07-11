@@ -2,16 +2,59 @@
 	"name": "Fairway PWD Dev Container",
 	"image": "fairway-pwd",
 	"mounts": [
-		"source=${localWorkspaceFolder},target=/pwd,type=bind",
+		"source=${localWorkspaceFolder},target=/workspaces,type=bind",
 		"source=${localWorkspaceFolder}/mysql/data,target=/mysql/data,type=bind"
 	],
-	"runArgs": ["-p", "90:80", "-e", "DEV_CONTAINER=true"],
-	"forwardPorts": [80],
+	"runArgs": [
+		"-p", "90:80", 
+		"-p", "8081:8081", 
+		"-p", "19000:19000", 
+		"-p", "19001:19001", 
+		"-p", "19002:19002", 
+		"-p", "8097:8097", 
+		"-p", "4000:4000", 
+		"-p", "3000:3000", 
+		"-e", "DEV_CONTAINER=true"
+	],
+	"forwardPorts": [80, 8081, 19000, 19001, 19002, 8097, 4000, 3000],
 	"portsAttributes": {
 		"80": {
 			"label": "Web Server (localhost:90)",
 			"onAutoForward": "notify"
+		},
+		"8081": {
+			"label": "React Native Metro Bundler",
+			"onAutoForward": "notify"
+		},
+		"19000": {
+			"label": "Expo DevTools",
+			"onAutoForward": "notify"
+		},
+		"19001": {
+			"label": "Expo DevTools (Secure)",
+			"onAutoForward": "notify"
+		},
+		"19002": {
+			"label": "Expo DevTools (Tunnel)",
+			"onAutoForward": "notify"
+		},
+		"8097": {
+			"label": "React Native Debugger",
+			"onAutoForward": "notify"
+		},
+		"4000": {
+			"label": "Development Server",
+			"onAutoForward": "notify"
+		},
+		"3000": {
+			"label": "Development Server (Alt)",
+			"onAutoForward": "notify"
 		}
+	},
+	"containerEnv": {
+		"EXPO_DEVTOOLS_LISTEN_ADDRESS": "0.0.0.0",
+		"REACT_NATIVE_PACKAGER_HOSTNAME": "0.0.0.0",
+		"EXPO_CLI_NO_INSTALL_DEPENDENCIES": "1"
 	},
 	"initializeCommand": "mkdir -p ${localWorkspaceFolder}/mysql/data",
 	"postCreateCommand": "/usr/local/bin/entrypoint.sh",

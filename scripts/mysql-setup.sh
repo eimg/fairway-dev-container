@@ -59,5 +59,6 @@ print_status() {
     echo "MySQL data directory: /mysql/data"
     echo "PHP-FPM is running"
     echo "phpMyAdmin at: http://localhost/phpmyadmin/"
+    echo ""
     echo "Development environment is ready!"
 }

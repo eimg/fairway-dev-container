@@ -10,13 +10,43 @@ mkdir -p mysql/data
 
 # Run container
 docker run -d \
-  -p 80:80 \
-  -v "$(pwd):/pwd" \
+  -p 90:80 \
+  -p 8081:8081 \
+  -p 19000:19000 \
+  -p 3000:3000 \
+  -v "$(pwd):/workspaces" \
   -v "$(pwd)/mysql/data:/mysql/data" \
   fairway-pwd
 ```
 
-Access your environment at http://localhost and phpMyAdmin at http://localhost/phpmyadmin
+Access your environment at http://localhost:90 and phpMyAdmin at http://localhost:90/phpmyadmin
+
+## Starting New Project
+
+Starting a new project? Use this pre-built image:
+
+1. **Pull the image**:
+   ```bash
+   docker pull fairway-pwd
+   ```
+
+2. **Copy devcontainer config**:
+   ```bash
+   # Create .devcontainer directory
+   mkdir -p .devcontainer
+   
+   # Download devcontainer.json from GitHub
+   curl -o .devcontainer/devcontainer.json https://raw.githubusercontent.com/eimg/fairway-dev-container/main/.devcontainer/devcontainer.json
+   ```
+
+3. **Open in VS Code**:
+   ```bash
+   code .
+   ```
+
+4. **Reopen in Container**: Command Palette → "Dev Containers: Reopen in Container"
+
+5. **Ready to go!** All services start automatically, and you can begin development immediately.
 
 ## What's Included
 
@@ -26,54 +56,88 @@ Access your environment at http://localhost and phpMyAdmin at http://localhost/p
 - **Node.js 22** with npm for modern frontend tooling
 - **phpMyAdmin** for database management
 - **Composer** for PHP dependency management
+- **React Native & Expo** support with universal networking
 - **Development tools**: Git, curl, nano, tree, build-essential
+- **Shell**: zsh + oh-my-zsh with dev container indicator
 
 ## Key Features
 
 - **Zero Configuration**: Services start automatically
 - **Persistent Data**: MySQL data survives container restarts
 - **VS Code Ready**: Built-in dev container support
+- **Universal Networking**: Works with Android emulator & iOS simulator
+- **Multi-Framework**: PHP/Laravel, Node, React Native/Expo development
 
 ## Perfect For
 
-- **Full-Stack Projects**: PHP, Laravel backend with Node.js frontend tools
-- **Learning & Prototyping**: Quick setup for experiments
-- **Team Development**: Consistent environment across team members
+- **Full-Stack Projects**
+- **Laravel Projects**
+- **React Projects**
+- **Node Back-end Projects**
+- **React Native/Expo Projects**
+- **Quick Development Environment**
 
 ## Usage Examples
 
+### Basic Usage
 ```bash
-docker run -d -p 80:80 -v "$(pwd):/pwd" fairway-pwd
+docker run -d \
+  -p 90:80 \
+  -v "$(pwd):/workspaces" \
+  -v "$(pwd)/mysql/data:/mysql/data" \
+  fairway-pwd
 ```
 
-### With VS Code Dev Containers
-```json
-{
-  "name": "PHP Dev Environment",
-  "image": "fairway-pwd",
-  "mounts": [
-    "source=${localWorkspaceFolder},target=/pwd,type=bind",
-    "source=${localWorkspaceFolder}/mysql/data,target=/mysql/data,type=bind"
-  ]
-}
+### With React Native/Expo Support
+```bash
+docker run -d \
+  -p 90:80 -p 8081:8081 -p 19000:19000 -p 3000:3000 \
+  -v "$(pwd):/workspaces" \
+  -v "$(pwd)/mysql/data:/mysql/data" \
+  fairway-pwd
 ```
 
-## Source & More...
+## More Information
 
-See [GitHub Repository](https://github.com/eimg/fairway-dev-container)
+### Laravel
+```bash
+# Create new Laravel project
+composer create-project laravel/laravel my-project
+cd my-project
+composer run dev
+```
+
+### React Native & Expo
+```bash
+# Create new Expo project
+npx create-expo-app@latest MyApp
+cd MyApp
+npx expo start
+```
 
 ## Services & Ports
 
-- **Web Server**: Port 80 (Nginx + PHP-FPM)
-- **MySQL**: Internal only (use phpMyAdmin or connect from app)
+- **Web Server**: Port 90 (Nginx + PHP-FPM)
+- **MySQL**: Internal only (root/root - use phpMyAdmin)
 - **phpMyAdmin**: /phpmyadmin (auto-login as root)
+- **Metro Bundler**: Port 8081 (React Native)
+- **Expo DevTools**: Ports 19000-19002
+- **Development Servers**: Ports 3000, 4000
+
+## Environment Variables
+
+- `EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0` - External connections
+- `REACT_NATIVE_PACKAGER_HOSTNAME=0.0.0.0` - Universal compatibility
+
+## Configuration Notes
+
+**Vite Projects**: Add `host: "0.0.0.0"` to vite.config.js for proper port forwarding
+**Terminal**: Shows `🐳 dev` indicator when in container
 
 ## Tags
 
 - `latest` - Latest stable build
 
 ---
-
-**Size**: ~1.76GB | **Base**: Ubuntu 24.04 LTS | **Maintained**: Active
 
 Perfect for developers who want to focus on coding, not environment setup! 🚀 
