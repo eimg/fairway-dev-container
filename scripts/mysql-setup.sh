@@ -65,5 +65,6 @@ print_status() {
     echo "Redis data directory: /redis/data"
     echo "PHP-FPM is running"
     echo "phpMyAdmin at: http://localhost/phpmyadmin/"
+    echo ""
     echo "Development environment is ready!"
 }

@@ -17,7 +17,17 @@ RUN apt-get update && apt-get upgrade -y && \
     nano \
     tree \
     build-essential \
-    libnss3-tools
+    libnss3-tools \
+    zsh
+
+# Install Oh My Zsh
+RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
+
+# Add dev container indicator to zsh prompt
+RUN echo 'export PS1="🐳 dev $PS1"' >> ~/.zshrc
+
+# Set zsh as default shell
+RUN chsh -s $(which zsh)
 
 # PHP 8.4 & Extensions
 RUN add-apt-repository ppa:ondrej/php -y && \
@@ -55,6 +65,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g nodemon ts-node typescript
+
+# React Native & Expo Environment Variables
+ENV EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
+ENV REACT_NATIVE_PACKAGER_HOSTNAME=0.0.0.0
+ENV EXPO_CLI_NO_INSTALL_DEPENDENCIES=1
 
 # Nginx
 RUN apt-get install -y nginx
@@ -131,7 +146,7 @@ RUN chown redis:redis /etc/redis/redis.conf
 RUN chown -R www-data:www-data /var/www/html/phpmyadmin
 
 # Working Directory Setup
-# Files are mounted to /pwd via volume mount
+# Files are mounted to /workspaces via volume mount
 
 # Final Setup & Startup Command
 # Clean up apt cache to reduce image size.
@@ -148,8 +163,11 @@ RUN chmod +x /usr/local/bin/entrypoint.sh
 # Expose ports for web (HTTP)
 EXPOSE 80
 
+# Expose React Native & Expo ports
+EXPOSE 8081 19000 19001 19002 8097 4000 3000
+
 # Set the working directory
-WORKDIR /pwd
+WORKDIR /workspaces
 
 # Startup Command
 CMD ["/usr/local/bin/entrypoint.sh"]
