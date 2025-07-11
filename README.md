@@ -1,6 +1,6 @@
 # Complete PHP & JavaScript Development Environment
 
-All-in-one development environment container with PHP 8.4, Nginx, MySQL 8.0, Redis 7.0, Node.js 22, and phpMyAdmin. Perfect for rapid development and prototyping.
+All-in-one development environment container with PHP 8.4, Nginx, MySQL 8.0, Redis 7.0, Node.js 22, and phpMyAdmin. **Designed primarily for VS Code Dev Containers** for the best development experience.
 
 ## What's Included
 
@@ -8,51 +8,21 @@ All-in-one development environment container with PHP 8.4, Nginx, MySQL 8.0, Red
 -   **PHP**: 8.4 with FPM and common extensions
 -   **Web Server**: Nginx
 -   **Database**: MySQL 8.0
--   **Cache**: Redis 7.0.15
+-   **Cache**: Redis 7.0
 -   **Node.js**: 22 with npm
 -   **Tools**: Composer, phpMyAdmin
 -   **Dev Tools**: Git, curl, nano, tree
 
-## Quick Start
+## VS Code Dev Container (Recommended)
 
-### Build Image
+This container is designed with VS Code Dev Containers in mind for the optimal development experience.
 
-```bash
-docker build -t fairway-pwd .
-```
+**Prerequisites:**
+- VS Code with [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
-### Run with Docker
+### Quick Start
 
-1. **Create MySQL data directory**:
-    ```bash
-    mkdir -p mysql/data 
-    ```
-2. **Create Redis data directory**:
-    ```bash
-    mkdir -p redis/data 
-    ```
-3. **Run container**:
-    ```bash
-    docker run -d \
-        -p 90:80 \
-        -p 8081:8081 \
-        -p 19000:19000 \
-        -p 3000:3000 \
-        -v "$(pwd):/workspaces" \
-        -v "$(pwd)/mysql/data:/mysql/data" \
-        -v "$(pwd)/redis/data:/redis/data" \
-        fairway-pwd
-    ```
-
-4. **Access services**:
-    - Web Server: http://localhost:90
-    - phpMyAdmin: http://localhost:90/phpmyadmin
-    - MySQL: Available inside container (root/root)
-    - Redis: Availabe inside container (root/root)
-
-## Starting New Project
-
-Starting a new project? Use the pre-built image from Docker Hub:
+Use the pre-built image from Docker Hub:
 
 1. **Pull the image**:
    ```bash
@@ -76,6 +46,46 @@ Starting a new project? Use the pre-built image from Docker Hub:
 4. **Reopen in Container**: Command Palette → "Dev Containers: Reopen in Container"
 
 5. **Ready to go!** All services start automatically, and you can begin development immediately.
+
+**Access services:**
+- Web Server: http://localhost:90
+- phpMyAdmin: http://localhost:90/phpmyadmin
+
+## Direct Docker Usage
+
+For advanced users who prefer direct Docker commands:
+
+### Build Image
+
+```bash
+docker build -t fairway-pwd .
+```
+
+### Run with Docker
+
+1. **Create data directories**:
+    ```bash
+    mkdir -p mysql/data redis/data
+    ```
+
+2. **Run container**:
+    ```bash
+    docker run -d \
+        -p 90:80 \
+        -p 8081:8081 \
+        -p 19000:19000 \
+        -p 3000:3000 \
+        -v "$(pwd):/workspaces" \
+        -v "$(pwd)/mysql/data:/mysql/data" \
+        -v "$(pwd)/redis/data:/redis/data" \
+        fairway-pwd
+    ```
+
+3. **Access services**:
+    - Web Server: http://localhost:90
+    - phpMyAdmin: http://localhost:90/phpmyadmin
+    - MySQL: Available inside container (user: root, pass: root)
+    - Redis: Available inside container (user: root, pass: root)
 
 ## More Information
 
@@ -108,7 +118,7 @@ This container supports React Native and Expo development with universal network
 - **19000-19002**: Expo DevTools
 - **3000, 4000**: Development servers
 
-**Quick Start:**
+**Usage:**
 ```bash
 # Create new projects
 npx create-expo-app@latest MyApp
