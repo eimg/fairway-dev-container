@@ -35,6 +35,9 @@ Starting a new project? Use this pre-built image:
    ```bash
    # Create .devcontainer directory
    mkdir -p .devcontainer
+
+   # Create mysql and redis directory
+   mkdir -p ./mysql/data && mkdir -p ./redis/data
    
    # Download devcontainer.json from GitHub
    curl -o .devcontainer/devcontainer.json https://raw.githubusercontent.com/eimg/fairway-dev-container/main/.devcontainer/devcontainer.json
