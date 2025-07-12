@@ -22,6 +22,8 @@ This image is designed with VS Code Dev Containers in mind for the optimal devel
 
 ### Quick Start
 
+Use the pre-built image from Docker Hub:
+
 1. **Pull the image**:
    ```bash
    docker pull fairway-pwd
@@ -79,7 +81,9 @@ For advanced users who prefer direct Docker commands:
     - MySQL: Available inside container (user: root, pass: root)
     - Redis: Available inside container (user: root, pass: root)
 
-## More Information
+## Development Environments
+
+This container supports multiple development environments, providing everything needed for modern PHP and JavaScript development.
 
 ### Laravel Development
 
@@ -103,14 +107,26 @@ REDIS_USERNAME=root
 
 ### React Native & Expo Development
 
-This container supports React Native and Expo development. For optimal compatibility with both iOS simulator and Android emulator, you need to set the `REACT_NATIVE_PACKAGER_HOSTNAME` to your host machine's IP address.
+This container supports React Native and Expo development with pre-configured ports and environment settings.
 
-**Available Ports:**
+#### Available Ports
 - **8081**: Metro Bundler
 - **19000-19002**: Expo DevTools
 - **3000, 4000**: Development servers
 
-**Getting Your Host IP Address:**
+#### Network Configuration
+
+For optimal compatibility with both iOS simulator and Android emulator, you need to set the `REACT_NATIVE_PACKAGER_HOSTNAME` to your host machine's IP address.
+
+> [!NOTE]
+> React Native/Expo requires specific IP configuration because:
+> - iOS Simulator can access the development server via `localhost`
+> - Android Emulator uses `10.0.2.2` to access the host machine
+> - Setting your actual host IP address works universally for both platforms
+
+**Get your host machine's IP address:**
+
+Run the appropriate command in your host machine's terminal (not inside the container):
 
 **Windows:**
 ```bash
@@ -129,14 +145,21 @@ hostname -I | awk '{print $1}'
 ip route get 1.1.1.1 | grep -oP 'src \K\S+'
 ```
 
-**Usage:**
+#### Usage
+
+Inside the container, set the environment variable using your host machine's IP address:
+
+```bash
+# Set your host IP (replace with your actual IP)
+export REACT_NATIVE_PACKAGER_HOSTNAME=192.168.1.100
+```
+
+Then start your development workflow:
+
 ```bash
 # Create new projects
 npx create-expo-app@latest MyApp
 cd MyApp
-
-# Set your host IP (replace with your actual IP)
-export REACT_NATIVE_PACKAGER_HOSTNAME=192.168.1.100
 
 # Start development servers
 npx expo start
@@ -150,8 +173,8 @@ npx expo start --tunnel
 - `EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0` - External connections
 - `REACT_NATIVE_PACKAGER_HOSTNAME=<your-host-ip>` - Set to your host machine's IP for both iOS and Android compatibility
 
-
 ### Vite Projects
+
 Vite (used in React SPA and Laravel) requires specific host configuration for VS Code dev container port forwarding:
 
 ```javascript
@@ -163,10 +186,8 @@ export default {
 };
 ```
 
-**Why this is needed:**
-- Vite defaults to `localhost` which only accepts local connections
-- Dev containers need `0.0.0.0` to accept connections from VS Code's port forwarding
-- Without this setting, "Open in Browser" won't work automatically
+> [!IMPORTANT]
+> Vite defaults to `localhost` which only accepts local connections. Dev containers need `0.0.0.0` to accept connections from outside the container. Without this setting, the host machine won't be able to access the Vite dev server running inside the container.
 
 ## Customization
 

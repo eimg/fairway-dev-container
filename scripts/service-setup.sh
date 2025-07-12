@@ -83,7 +83,7 @@ print_status() {
     echo ""
     echo "✅ All services started successfully!"
     echo ""
-    echo "🌐 Service Information:"
+    echo "🟢 Service Information:"
     echo "   ➜ Nginx is running on port 80"
     echo "   ➜ MySQL is running on localhost (root/root)"
     echo "   ➜ MySQL data directory: /mysql/data"
