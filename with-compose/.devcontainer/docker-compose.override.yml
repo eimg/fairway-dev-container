@@ -1,0 +1,19 @@
+services:
+  php-fpm:
+    # Override for dev container usage
+    command: sleep infinity
+    volumes:
+      - ../src:/var/www/html:cached
+    environment:
+      - XDEBUG_MODE=develop,debug
+      - XDEBUG_CONFIG=client_host=host.docker.internal client_port=9003 start_with_request=yes
+      - TZ=UTC
+    # Ensure the container stays running
+    stdin_open: true
+    tty: true
+
+  nginx:
+    volumes:
+      - ../src:/var/www/html:cached
+    environment:
+      - NGINX_ERROR_LOG_LEVEL=debug

@@ -11,7 +11,7 @@ All-in-one development environment container with PHP 8.4, Nginx, MySQL 8.0, Red
 -   **Cache**: Redis 7.0
 -   **Node**: 22 with npm
 -   **Tools**: Composer, phpMyAdmin
--   **Dev Tools**: Git, curl, nano, tree
+-   **Dev Tools**: git, github-cli, curl, nano, tree
 
 ## VS Code Dev Container (Recommended)
 
@@ -78,6 +78,8 @@ docker build -t fairway-pwd .
         -v "$(pwd):/app" \
         -v "$(pwd)/mysql/data:/mysql/data" \
         -v "$(pwd)/redis/data:/redis/data" \
+        -v "gh-auth:/root/.config/gh" \
+        -v "$HOME/.gitconfig:/root/.gitconfig" \
         fairway-pwd
     ```
 
@@ -246,3 +248,4 @@ Add to `customizations.vscode.extensions` in `.devcontainer/devcontainer.json`.
 -   Redis only accessible from inside container
 -   Use phpMyAdmin for database management
 -   Terminal shows `🐳 dev` indicator when in dev container
+-   `.gitconfig` is bind-mounted from host for development convenience - this shares your git credentials with the container and should only be used in trusted development environments

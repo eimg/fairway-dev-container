@@ -1,0 +1,68 @@
+{
+	"name": "PHP Development Container",
+	"dockerComposeFile": "../docker-compose.yml",
+	"service": "php-fpm",
+	"workspaceFolder": "/var/www/html",
+	"shutdownAction": "stopCompose",
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"php.suggest.basic": false,
+				"php.validate.executablePath": "/usr/bin/php",
+				"files.associations": {
+					"*.php": "php",
+					"*.jsx": "javascriptreact",
+					"*.tsx": "typescriptreact"
+				},
+				"javascript.updateImportsOnFileMove.enabled": "always",
+				"typescript.updateImportsOnFileMove.enabled": "always",
+				"javascript.suggest.autoImports": true,
+				"typescript.suggest.autoImports": true,
+				"editor.defaultFormatter": "esbenp.prettier-vscode",
+				"[javascript]": {
+					"editor.defaultFormatter": "esbenp.prettier-vscode"
+				},
+				"[typescript]": {
+					"editor.defaultFormatter": "esbenp.prettier-vscode"
+				},
+				"[javascriptreact]": {
+					"editor.defaultFormatter": "esbenp.prettier-vscode"
+				},
+				"[typescriptreact]": {
+					"editor.defaultFormatter": "esbenp.prettier-vscode"
+				}
+			},
+			"extensions": [
+				"mikestead.dotenv",
+				"bmewburn.vscode-intelephense-client",
+				"formulahendry.auto-rename-tag",
+				"bradlc.vscode-tailwindcss",
+				"amiralizadeh9480.laravel-extra-intellisense",
+				"onecentlin.laravel-blade",
+				"austenc.laravel-blade-spacer",
+				"christian-kohler.path-intellisense",
+				"esbenp.prettier-vscode",
+				"prisma.prisma",
+				"qwtel.sqlite-viewer"
+			]
+		}
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/git:1": {},
+		"ghcr.io/devcontainers/features/github-cli:1": {}
+	},
+	"forwardPorts": [90, 91],
+	"portsAttributes": {
+		"90": {
+			"label": "Web Application",
+			"onAutoForward": "notify"
+		},
+		"91": {
+			"label": "phpMyAdmin",
+			"onAutoForward": "silent"
+		}
+	},
+	"postCreateCommand": "composer --version && php --version && node --version",
+	"remoteUser": "root",
+	"overrideCommand": false
+}

@@ -390,6 +390,13 @@ $redisStatus = checkRedisStatus();
                 </div>
                 <div class="service-item">
                     <div>
+                        <div class="service-name">GitHub CLI</div>
+                        <div class="service-info">Command-line interface for GitHub</div>
+                    </div>
+                    <span class="status available">Available</span>
+                </div>
+                <div class="service-item">
+                    <div>
                         <div class="service-name">Build Tools</div>
                         <div class="service-info">GCC, Make, development headers</div>
                     </div>

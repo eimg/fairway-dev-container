@@ -3,7 +3,9 @@
 	"image": "fairway-pwd",
 	"mounts": [
 		"source=${localWorkspaceFolder}/mysql/data,target=/mysql/data,type=bind",
-		"source=${localWorkspaceFolder}/redis/data,target=/redis/data,type=bind"
+		"source=${localWorkspaceFolder}/redis/data,target=/redis/data,type=bind",
+		"source=gh-auth,target=/root/.config/gh,type=volume",
+		"source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind"
 	],
 	"runArgs": [
 		"-p", "90:80", 
