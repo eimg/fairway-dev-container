@@ -237,9 +237,8 @@ Add to `customizations.vscode.extensions` in `.devcontainer/devcontainer.json`.
 
 ## Important Notes
 
--   Container runs as root for development simplicity
+-   ⚠️ Container runs as root for development simplicity
+-   ⚠️ `.gitconfig` is bind-mounted from host for development convenience - this shares your git credentials with the container and should only be used in trusted development environments
 -   MySQL only accessible from inside container
 -   Redis only accessible from inside container
--   Use phpMyAdmin for database management
 -   Terminal shows `🐳 dev` indicator when in dev container
--   `.gitconfig` is bind-mounted from host for development convenience - this shares your git credentials with the container and should only be used in trusted development environments
