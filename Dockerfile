@@ -64,7 +64,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Node 22
 RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     apt-get install -y nodejs && \
-    npm install -g nodemon ts-node typescript
+    npm install -g nodemon ts-node typescript yarn pnpm http-server prettier eslint
 
 # React Native & Expo Environment Variables
 ENV EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
@@ -75,7 +75,8 @@ ENV EXPO_CLI_NO_INSTALL_DEPENDENCIES=1
 RUN apt-get install -y nginx
 RUN rm -f /etc/nginx/sites-enabled/default
 
-RUN mv /var/www/html/index.nginx-debian.html /var/www/html/index.html
+RUN rm -f /var/www/html/index.nginx-debian.html
+COPY dashboard/index.php /var/www/html/index.php
 
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 COPY nginx/sites-available/default /etc/nginx/sites-available/default
@@ -128,9 +129,9 @@ EOF
 # is mounted as a volume and not available during build time.
 
 # phpMyAdmin
-RUN wget https://files.phpmyadmin.net/phpMyAdmin/5.2.1/phpMyAdmin-5.2.1-all-languages.zip -O phpmyadmin.zip && \
+RUN wget https://files.phpmyadmin.net/phpMyAdmin/5.2.2/phpMyAdmin-5.2.2-all-languages.zip -O phpmyadmin.zip && \
     unzip phpmyadmin.zip -d /var/www/html && \
-    mv /var/www/html/phpMyAdmin-5.2.1-all-languages /var/www/html/phpmyadmin && \
+    mv /var/www/html/phpMyAdmin-5.2.2-all-languages /var/www/html/phpmyadmin && \
     rm phpmyadmin.zip
 
 # Copy phpMyAdmin configuration

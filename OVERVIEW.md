@@ -1,6 +1,6 @@
 # Complete PHP & JavaScript Development Environment
 
-All-in-one development environment container image with PHP 8.4, Nginx, MySQL 8.0, Redis 7.0, Node.js 22, and phpMyAdmin. **Designed primarily for VS Code Dev Containers** for the best development experience.
+All-in-one development environment container image with PHP 8.4, Nginx, MySQL 8.0, Redis 7.0, Node 22, and phpMyAdmin. **Designed primarily for VS Code Dev Containers** for the best development experience, learning, and quick prototyping. Perfect for both development projects and educational environments where you need a complete stack ready to go.
 
 ## What's Included
 
@@ -9,7 +9,7 @@ All-in-one development environment container image with PHP 8.4, Nginx, MySQL 8.
 -   **Web Server**: Nginx
 -   **Database**: MySQL 8.0
 -   **Cache**: Redis 7.0
--   **Node.js**: 22 with npm
+-   **Node**: 22 with npm
 -   **Tools**: Composer, phpMyAdmin
 -   **Dev Tools**: Git, curl, nano, tree
 
@@ -96,14 +96,42 @@ cd my-project
 composer run dev
 ```
 
-**Redis Configuration for Laravel:**
-```bash
-# In your .env file
-REDIS_HOST=127.0.0.1
-REDIS_PASSWORD=root
-REDIS_PORT=6379
-REDIS_USERNAME=root
+### Node & Package Managers
+
+This container includes **Node 22** with several globally installed packages for development convenience:
+
+#### Package Managers
+- **npm**: Default Node package manager
+- **yarn**: Fast, reliable package manager
+- **pnpm**: Efficient disk space usage with symlinked node_modules
+
+#### Global Development Tools
+The following packages are installed globally for **one-off convenience and quick scripts during learning**:
+- **nodemon**: Auto-restart Node applications during development
+- **ts-node**: Execute TypeScript files directly without compilation
+- **typescript**: TypeScript compiler
+- **http-server**: Simple HTTP server for static files
+- **prettier**: Code formatter
+- **eslint**: JavaScript/TypeScript linter
+
+> [!NOTE]
+> For production projects and team consistency, **always use local packages** instead of global ones.
+
+### Vite Projects
+
+Vite (used in React SPA and Laravel) requires specific host configuration for VS Code dev container port forwarding:
+
+```javascript
+// vite.config.js
+export default {
+    server: {
+        host: "0.0.0.0",
+    },
+};
 ```
+
+> [!NOTE]
+> Vite requires `0.0.0.0` instead of the default `localhost` to allow connections from outside the container.
 
 ### React Native & Expo Development
 
@@ -173,21 +201,8 @@ npx expo start --tunnel
 - `EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0` - External connections
 - `REACT_NATIVE_PACKAGER_HOSTNAME=<your-host-ip>` - Set to your host machine's IP for both iOS and Android compatibility
 
-### Vite Projects
-
-Vite (used in React SPA and Laravel) requires specific host configuration for VS Code dev container port forwarding:
-
-```javascript
-// vite.config.js
-export default {
-    server: {
-        host: "0.0.0.0",
-    },
-};
-```
-
-> [!IMPORTANT]
-> Vite defaults to `localhost` which only accepts local connections. Dev containers need `0.0.0.0` to accept connections from outside the container. Without this setting, the host machine won't be able to access the Vite dev server running inside the container.
+> [!NOTE]
+> Despite this pre-configuration, this container setup is primarily suitable for **quick start learning and prototyping**. For projects requiring development builds and advanced debugging, it's recommended to work directly on the host machine rather than attempting to tweak the container. The constraints of emulators, simulators, and build processes make containerized React Native development rarely worth the complexity.
 
 ## Customization
 
