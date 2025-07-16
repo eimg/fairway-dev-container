@@ -18,8 +18,8 @@ docker-compose ps
 ```
 
 **Access Your Application:**
-- **Web Application**: http://localhost:90
-- **phpMyAdmin**: http://localhost:91
+- **Web Application**: http://localhost:8800
+- **phpMyAdmin**: http://localhost:8801
 
 ## 📋 Services Overview
 
@@ -29,7 +29,7 @@ docker-compose ps
 | **php-fpm** | Ubuntu 24.04 + PHP 8.4 | - | PHP application server |
 | **mysql** | MySQL 8.0 | - | Database server |
 | **redis** | Redis latest | - | Caching & sessions |
-| **phpmyadmin** | phpMyAdmin latest | 91 | Database management |
+| **phpmyadmin** | phpMyAdmin latest | 8801 | Database management |
 
 ## 🐳 Docker Architecture
 
@@ -205,16 +205,12 @@ sudo chown -R $USER:$USER src/
 ## ⚙️ Configuration
 
 ### **Environment Variables**
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `MYSQL_ROOT_PASSWORD` | root | MySQL root password |
-| `PMA_HOST` | mysql | phpMyAdmin MySQL host |
+- `MYSQL_ROOT_PASSWORD`: MySQL root password (default: root)
+- `PMA_HOST`: phpMyAdmin MySQL host (default: mysql)
 
 ### **Port Mapping**
-| Service | Internal | External | URL |
-|---------|----------|----------|-----|
-| nginx | 80 | 90 | http://localhost:90 |
-| phpMyAdmin | 80 | 91 | http://localhost:91 |
+- nginx: Port 80 → 8800 (http://localhost:8800)
+- phpMyAdmin: Port 80 → 8801 (http://localhost:8801)
 
 ## 🔄 Switching Between Modes
 

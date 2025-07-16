@@ -1,5 +1,8 @@
 .env
 .DS_Store
+*.pem
 
-mysql/
-redis/
+mysql-data/
+redis-data/
+nginx-https/
+certs/

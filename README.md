@@ -48,8 +48,8 @@ Use the pre-built image from Docker Hub:
 5. **Ready to go!** All services start automatically, and you can begin development immediately.
 
 **Access services:**
-- Web Server: http://localhost:90
-- phpMyAdmin: http://localhost:90/phpmyadmin
+- Web Server: http://localhost:8800
+- phpMyAdmin: http://localhost:8800/phpmyadmin
 
 ## Direct Docker Usage
 
@@ -65,27 +65,27 @@ docker build -t fairway-pwd .
 
 1. **Create data directories**:
     ```bash
-    mkdir -p mysql/data redis/data
+    mkdir -p mysql-data redis-data
     ```
 
 2. **Run container**:
     ```bash
     docker run -d \
-        -p 90:80 \
+        -p 8800:80 \
         -p 8081:8081 \
         -p 19000:19000 \
         -p 3000:3000 \
         -v "$(pwd):/app" \
-        -v "$(pwd)/mysql/data:/mysql/data" \
-        -v "$(pwd)/redis/data:/redis/data" \
+        -v "$(pwd)/mysql-data:/mysql/data" \
+        -v "$(pwd)/redis-data:/redis/data" \
         -v "gh-auth:/root/.config/gh" \
         -v "$HOME/.gitconfig:/root/.gitconfig" \
         fairway-pwd
     ```
 
 3. **Access services**:
-    - Web Server: http://localhost:90
-    - phpMyAdmin: http://localhost:90/phpmyadmin
+    - Web Server: http://localhost:8800
+    - phpMyAdmin: http://localhost:8800/phpmyadmin
     - MySQL: Available inside container (user: root, pass: root)
     - Redis: Available inside container (user: root, pass: root)
 

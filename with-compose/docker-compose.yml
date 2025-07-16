@@ -4,7 +4,7 @@ services:
       context: ./nginx
       dockerfile: Dockerfile
     ports:
-      - "90:80"
+      - "8800:80"
     volumes:
       - ./src:/var/www/html
     depends_on:
@@ -37,6 +37,6 @@ services:
       PMA_USER: root
       PMA_PASSWORD: root
     ports:
-      - "91:80"
+      - "8801:80"
     depends_on:
       - mysql

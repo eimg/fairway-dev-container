@@ -2,13 +2,13 @@
 	"name": "Fairway PWD Dev Container",
 	"image": "fairway-pwd",
 	"mounts": [
-		"source=${localWorkspaceFolder}/mysql/data,target=/mysql/data,type=bind",
-		"source=${localWorkspaceFolder}/redis/data,target=/redis/data,type=bind",
+		"source=${localWorkspaceFolder}/mysql-data,target=/mysql/data,type=bind",
+		"source=${localWorkspaceFolder}/redis-data,target=/redis/data,type=bind",
 		"source=gh-auth,target=/root/.config/gh,type=volume",
 		"source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind"
 	],
 	"runArgs": [
-		"-p", "90:80", 
+		"-p", "8800:80", 
 		"-p", "8081:8081", 
 		"-p", "19000:19000", 
 		"-p", "19001:19001", 
@@ -21,7 +21,7 @@
 	"forwardPorts": [80, 8081, 19000, 19001, 19002, 8097, 4000, 3000],
 	"portsAttributes": {
 		"80": {
-			"label": "Web Server (localhost:90)",
+			"label": "Web Server (localhost:8800)",
 			"onAutoForward": "notify"
 		},
 		"8081": {
@@ -58,7 +58,7 @@
 		"REACT_NATIVE_PACKAGER_HOSTNAME": "0.0.0.0",
 		"EXPO_CLI_NO_INSTALL_DEPENDENCIES": "1"
 	},
-	"initializeCommand": "mkdir -p ${localWorkspaceFolder}/mysql/data ${localWorkspaceFolder}/redis/data",
+	"initializeCommand": "mkdir -p ${localWorkspaceFolder}/mysql-data ${localWorkspaceFolder}/redis-data",
 	"postCreateCommand": "/usr/local/bin/entrypoint.sh",
 	"customizations": {
 		"vscode": {
