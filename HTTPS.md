@@ -189,8 +189,8 @@ services:
   - Vite Dev Server: `https://myapp.test/vite`
   - Laravel Dev Server: `https://myapp.test/laravel`
 
-### Custom ports (90/4433)
-- **HTTP** (`http://myapp.test:90`): Shows informational message
+### Custom ports (8800/4433)
+- **HTTP** (`http://myapp.test:8800`): Shows informational message
 - **HTTPS** (`https://myapp.test:4433`): Full functionality
   - Dashboard: `https://myapp.test:4433`
   - phpMyAdmin: `https://myapp.test:4433/phpmyadmin`

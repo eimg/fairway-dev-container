@@ -224,7 +224,7 @@ Edit `.devcontainer/devcontainer.json`:
 ### Add Environment Variables
 
 ```json
-"runArgs": ["-p", "90:80", "-e", "DEV_CONTAINER=true", "-e", "YOUR_VAR=value"]
+"runArgs": ["-p", "8800:80", "-e", "DEV_CONTAINER=true", "-e", "YOUR_VAR=value"]
 ```
 
 ### Additional VS Code Extensions

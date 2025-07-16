@@ -51,13 +51,13 @@
 		"ghcr.io/devcontainers/features/git:1": {},
 		"ghcr.io/devcontainers/features/github-cli:1": {}
 	},
-	"forwardPorts": [90, 91],
+	"forwardPorts": [8800, 8801],
 	"portsAttributes": {
-		"90": {
+		"8800": {
 			"label": "Web Application",
 			"onAutoForward": "notify"
 		},
-		"91": {
+		"8801": {
 			"label": "phpMyAdmin",
 			"onAutoForward": "silent"
 		}

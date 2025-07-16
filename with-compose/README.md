@@ -23,13 +23,11 @@ docker-compose ps
 
 ## 📋 Services Overview
 
-| Service | Technology | Port | Purpose |
-|---------|------------|------|---------|
-| **nginx** | Ubuntu 24.04 + nginx | 90 | Web server & reverse proxy |
-| **php-fpm** | Ubuntu 24.04 + PHP 8.4 | - | PHP application server |
-| **mysql** | MySQL 8.0 | - | Database server |
-| **redis** | Redis latest | - | Caching & sessions |
-| **phpmyadmin** | phpMyAdmin latest | 8801 | Database management |
+- **nginx** (Ubuntu 24.04 + nginx, port 8800): Web server & reverse proxy
+- **php-fpm** (Ubuntu 24.04 + PHP 8.4): PHP application server  
+- **mysql** (MySQL 8.0): Database server
+- **redis** (Redis latest): Caching & sessions
+- **phpmyadmin** (phpMyAdmin latest, port 8801): Database management
 
 ## 🐳 Docker Architecture
 

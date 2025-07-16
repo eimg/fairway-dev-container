@@ -519,7 +519,7 @@ $redisStatus = checkRedisStatus();
                 <div class="port-grid">
                     <div class="port-item">
                         <div class="port-number">80</div>
-                        <div class="service-info">Web Server (mapped to 90)</div>
+                        <div class="service-info">Web Server (mapped to 8800)</div>
                     </div>
                     <div class="port-item">
                         <div class="port-number">8081</div>
