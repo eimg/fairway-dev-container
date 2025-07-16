@@ -218,7 +218,7 @@ npx expo start --tunnel
 
 Edit `.devcontainer/devcontainer.json`:
 ```json
-"runArgs": ["-p", "8080:80", "-e", "DEV_CONTAINER=true"]
+"runArgs": ["-p", "8800:80", "-e", "DEV_CONTAINER=true"]
 ```
 
 ### Add Environment Variables
