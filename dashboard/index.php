@@ -511,8 +511,6 @@ $redisStatus = checkRedisStatus();
                     <div class="extension-item">sqlite3</div>
                     <div class="extension-item">pgsql</div>
                     <div class="extension-item">redis</div>
-                    <div class="extension-item">memcached</div>
-                    <div class="extension-item">xdebug</div>
                 </div>
             </div>
 

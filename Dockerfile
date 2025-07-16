@@ -54,9 +54,21 @@ RUN add-apt-repository ppa:ondrej/php -y && \
     php8.4-pdo \
     php8.4-sqlite3 \
     php8.4-pgsql \
-    php8.4-redis \
-    php8.4-memcached \
-    php8.4-xdebug
+    php8.4-redis
+
+# Configure PHP for development
+RUN echo "display_errors = On" > /etc/php/8.4/fpm/conf.d/99-development.ini && \
+    echo "display_startup_errors = On" >> /etc/php/8.4/fpm/conf.d/99-development.ini && \
+    echo "error_reporting = E_ALL" >> /etc/php/8.4/fpm/conf.d/99-development.ini && \
+    echo "log_errors = On" >> /etc/php/8.4/fpm/conf.d/99-development.ini && \
+    echo "html_errors = On" >> /etc/php/8.4/fpm/conf.d/99-development.ini && \
+    echo "opcache.revalidate_freq = 0" >> /etc/php/8.4/fpm/conf.d/99-development.ini && \
+    echo "opcache.validate_timestamps = 1" >> /etc/php/8.4/fpm/conf.d/99-development.ini && \
+    echo "max_execution_time = 300" >> /etc/php/8.4/fpm/conf.d/99-development.ini && \
+    echo "memory_limit = 512M" >> /etc/php/8.4/fpm/conf.d/99-development.ini
+
+# Apply same settings to CLI PHP
+RUN cp /etc/php/8.4/fpm/conf.d/99-development.ini /etc/php/8.4/cli/conf.d/99-development.ini
 
 # composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
