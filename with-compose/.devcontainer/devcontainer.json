@@ -1,6 +1,8 @@
 {
 	"name": "PHP Development Container",
-	"dockerComposeFile": "../docker-compose.yml",
+	"dockerComposeFile": [
+        "../docker-compose.yml"
+    ],
 	"service": "php-fpm",
 	"workspaceFolder": "/var/www/html",
 	"shutdownAction": "stopCompose",

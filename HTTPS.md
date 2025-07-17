@@ -68,7 +68,7 @@ server {
     
     location / {
         add_header Content-Type text/plain;
-        return 200 'Use HTTPS and associated port';
+        return 200 'Use HTTPS with associated port';
     }
 }
 

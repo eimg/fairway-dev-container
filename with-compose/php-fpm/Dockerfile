@@ -43,9 +43,7 @@ RUN add-apt-repository ppa:ondrej/php -y && \
     php8.4-pdo \
     php8.4-sqlite3 \
     php8.4-pgsql \
-    php8.4-redis \
-    php8.4-memcached \
-    php8.4-xdebug
+    php8.4-redis
 
 # composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

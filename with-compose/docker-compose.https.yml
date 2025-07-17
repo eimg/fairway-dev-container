@@ -1,0 +1,36 @@
+services:
+  nginx:
+    ports:
+      - "8800:80"   # HTTP (info only)
+      - "4433:443"  # HTTPS (main access)
+    volumes:
+      - ./src:/var/www/html
+      - ./certs:/etc/nginx/certs:ro
+      - ./nginx-https/default-ssl:/etc/nginx/sites-enabled/default:ro
+    depends_on:
+      - php-fpm
+
+  php-fpm:
+    volumes:
+      - ./src:/var/www/html
+
+  mysql:
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+
+  redis:
+    volumes:
+      - ./redis-data:/data
+
+  phpmyadmin:
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - "8801:80"  # phpMyAdmin on HTTP
+    depends_on:
+      - mysql

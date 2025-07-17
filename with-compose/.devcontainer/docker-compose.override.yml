@@ -5,8 +5,6 @@ services:
     volumes:
       - ../src:/var/www/html:cached
     environment:
-      - XDEBUG_MODE=develop,debug
-      - XDEBUG_CONFIG=client_host=host.docker.internal client_port=9003 start_with_request=yes
       - TZ=UTC
     # Ensure the container stays running
     stdin_open: true
