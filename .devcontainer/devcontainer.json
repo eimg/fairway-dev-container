@@ -58,7 +58,7 @@
 		"REACT_NATIVE_PACKAGER_HOSTNAME": "0.0.0.0",
 		"EXPO_CLI_NO_INSTALL_DEPENDENCIES": "1"
 	},
-	"initializeCommand": "mkdir -p ${localWorkspaceFolder}/mysql-data ${localWorkspaceFolder}/redis-data",
+	"initializeCommand": "docker run --rm -v \"${localWorkspaceFolder}:/workspace\" alpine sh -c \"mkdir -p /workspace/mysql-data /workspace/redis-data\"",
 	"postCreateCommand": "/usr/local/bin/entrypoint.sh",
 	"customizations": {
 		"vscode": {
