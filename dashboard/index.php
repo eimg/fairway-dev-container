@@ -365,7 +365,7 @@ $redisStatus = checkRedisStatus();
                 </div>
                 <div class="service-item">
                     <div>
-                        <div class="service-name">Node <span class="version-badge">22</span></div>
+                        <div class="service-name">Node <span class="version-badge">24</span></div>
                         <div class="service-info">JavaScript Runtime</div>
                     </div>
                     <span class="status available">Available</span>

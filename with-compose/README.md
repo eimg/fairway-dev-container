@@ -47,7 +47,7 @@ docker-compose ps
 ### **PHP Configuration**
 - **Version**: PHP 8.4
 - **Extensions**: MySQL, Redis, GD, XML, cURL, Xdebug, and 30+ more
-- **Tools**: Composer, Node.js 22, npm, yarn, pnpm
+- **Tools**: Composer, Node.js 24, npm, yarn, pnpm
 - **Error Display**: Enabled for development
 - **Xdebug**: Available for debugging
 

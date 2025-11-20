@@ -48,8 +48,8 @@ RUN add-apt-repository ppa:ondrej/php -y && \
 # composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Node 22
-RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
+# Node 24
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g nodemon ts-node typescript yarn pnpm http-server prettier eslint
 

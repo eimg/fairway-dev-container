@@ -73,7 +73,7 @@ RUN cp /etc/php/8.4/fpm/conf.d/99-development.ini /etc/php/8.4/cli/conf.d/99-dev
 # composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Node 22
+# Node 24
 RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g nodemon ts-node typescript yarn pnpm http-server prettier eslint
