@@ -74,7 +74,7 @@ RUN cp /etc/php/8.4/fpm/conf.d/99-development.ini /etc/php/8.4/cli/conf.d/99-dev
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Node 22
-RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g nodemon ts-node typescript yarn pnpm http-server prettier eslint
 
@@ -128,20 +128,21 @@ RUN echo "[mysqld]" > /etc/mysql/conf.d/datadir.cnf && \
 RUN mkdir -p /mysql/data && chown -R mysql:mysql /mysql/data
 
 # Fix debian-sys-maint user for service management
-RUN cat > /etc/mysql/debian.cnf << 'EOF'
-# Automatically generated for Debian scripts. DO NOT TOUCH!
-[client]
-host     = localhost
-user     = debian-sys-maint
-password = 
-socket   = /var/run/mysqld/mysqld.sock
-[mysql_upgrade]
-host     = localhost
-user     = debian-sys-maint
-password = 
-socket   = /var/run/mysqld/mysqld.sock
-basedir  = /usr
-EOF
+RUN printf '%s\n' \
+  '# Automatically generated for Debian scripts. DO NOT TOUCH!' \
+  '[client]' \
+  'host     = localhost' \
+  'user     = debian-sys-maint' \
+  'password = ' \
+  'socket   = /var/run/mysqld/mysqld.sock' \
+  '' \
+  '[mysql_upgrade]' \
+  'host     = localhost' \
+  'user     = debian-sys-maint' \
+  'password = ' \
+  'socket   = /var/run/mysqld/mysqld.sock' \
+  'basedir  = /usr' \
+  > /etc/mysql/debian.cnf
 
 # Note: MySQL data directory initialization and startup must be handled at runtime
 # in the entrypoint script because the external data directory (/mysql/data)
