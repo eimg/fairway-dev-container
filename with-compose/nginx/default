@@ -42,7 +42,7 @@ server {
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
 
-        # Use the PHP-FPM service for PHP 8.4
+        # Use the PHP-FPM service for PHP 8.5
         fastcgi_pass php-fpm:9000;
 
         # Set a custom parameter to identify the script file

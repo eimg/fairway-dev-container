@@ -18,32 +18,30 @@ RUN apt-get update && apt-get upgrade -y && \
     build-essential \
     libnss3-tools
 
-# PHP 8.4 & Extensions
+# PHP 8.5 & Extensions
 RUN add-apt-repository ppa:ondrej/php -y && \
     apt-get update && \
     apt-get install -y \
-    php8.4-fpm \
-    php8.4-cli \
-    php8.4-common \
-    php8.4-mysql \
-    php8.4-xml \
-    php8.4-xmlrpc \
-    php8.4-curl \
-    php8.4-gd \
-    php8.4-imagick \
-    php8.4-dev \
-    php8.4-imap \
-    php8.4-mbstring \
-    php8.4-opcache \
-    php8.4-soap \
-    php8.4-zip \
-    php8.4-intl \
-    php8.4-bcmath \
-    php8.4-gmp \
-    php8.4-pdo \
-    php8.4-sqlite3 \
-    php8.4-pgsql \
-    php8.4-redis
+    php8.5-fpm \
+    php8.5-cli \
+    php8.5-common \
+    php8.5-mysql \
+    php8.5-xml \
+    php8.5-curl \
+    php8.5-gd \
+    php8.5-imagick \
+    php8.5-dev \
+    php8.5-imap \
+    php8.5-mbstring \
+    php8.5-opcache \
+    php8.5-soap \
+    php8.5-zip \
+    php8.5-intl \
+    php8.5-bcmath \
+    php8.5-gmp \
+    php8.5-sqlite3 \
+    php8.5-pgsql \
+    php8.5-redis
 
 # composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -59,11 +57,11 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 WORKDIR /var/www/html
 
 # Configure PHP-FPM to listen on TCP instead of socket
-RUN sed -i 's/listen = \/run\/php\/php8.4-fpm.sock/listen = 9000/' /etc/php/8.4/fpm/pool.d/www.conf
+RUN sed -i 's/listen = \\/run\\/php\\/php8.5-fpm.sock/listen = 9000/' /etc/php/8.5/fpm/pool.d/www.conf
 
 # Enable error display for development
-RUN echo "display_errors = On" >> /etc/php/8.4/fpm/php.ini && \
-    echo "display_startup_errors = On" >> /etc/php/8.4/fpm/php.ini && \
-    echo "error_reporting = E_ALL" >> /etc/php/8.4/fpm/php.ini
+RUN echo "display_errors = On" >> /etc/php/8.5/fpm/php.ini && \
+    echo "display_startup_errors = On" >> /etc/php/8.5/fpm/php.ini && \
+    echo "error_reporting = E_ALL" >> /etc/php/8.5/fpm/php.ini
 
-CMD ["php-fpm8.4", "-F"]
+CMD ["php-fpm8.5", "-F"]

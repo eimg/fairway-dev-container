@@ -44,7 +44,7 @@ start_services() {
     
     # PHP-FPM
     echo "Starting PHP-FPM..."
-    service php8.4-fpm start
+    service php8.5-fpm start
     echo "PHP-FPM started"
 
     # Nginx

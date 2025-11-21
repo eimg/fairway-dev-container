@@ -356,13 +356,13 @@ $redisStatus = checkRedisStatus();
                         <?php echo $redisStatus ? 'Running' : 'Error'; ?>
                     </span>
                 </div>
-                <div class="service-item">
-                    <div>
-                        <div class="service-name">PHP <span class="version-badge">8.4</span></div>
-                        <div class="service-info">FastCGI Process Manager</div>
-                    </div>
-                    <span class="status running">Running</span>
-                </div>
+        <div class="service-item">
+            <div>
+                <div class="service-name">PHP <span class="version-badge">8.5</span></div>
+                <div class="service-info">FastCGI Process Manager (imagick/imap/opcache temporarily disabled for multi-arch)</div>
+            </div>
+            <span class="status running">Running</span>
+        </div>
                 <div class="service-item">
                     <div>
                         <div class="service-name">Node <span class="version-badge">24</span></div>

@@ -1,11 +1,11 @@
 # Complete PHP & JavaScript Development Environment
 
-All-in-one development environment container with PHP 8.4, Nginx, MySQL 8.0, Redis 7.0, Node 24, and phpMyAdmin. **Designed primarily for VS Code Dev Containers** for the best development experience, learning, and quick prototyping. Perfect for both development projects and educational environments where you need a complete stack ready to go.
+All-in-one development environment container with PHP 8.5, Nginx, MySQL 8.0, Redis 7.0, Node 24, and phpMyAdmin. **Designed primarily for VS Code Dev Containers** for the best development experience, learning, and quick prototyping. Perfect for both development projects and educational environments where you need a complete stack ready to go.
 
 ## What's Included
 
 -   **OS**: Ubuntu 24.04 LTS with zsh + oh-my-zsh
--   **PHP**: 8.4 with FPM and common extensions
+-   **PHP**: 8.5 with FPM and common extensions *(imagick, imap, and opcache temporarily omitted for multi-arch parity)*
 -   **Web Server**: Nginx
 -   **Database**: MySQL 8.0
 -   **Cache**: Redis 7.0

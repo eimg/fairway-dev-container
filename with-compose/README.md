@@ -24,7 +24,7 @@ docker-compose ps
 ## 📋 Services Overview
 
 - **nginx** (Ubuntu 24.04 + nginx, port 8800): Web server & reverse proxy
-- **php-fpm** (Ubuntu 24.04 + PHP 8.4): PHP application server  
+- **php-fpm** (Ubuntu 24.04 + PHP 8.5): PHP application server  
 - **mysql** (MySQL 8.0): Database server
 - **redis** (Redis latest): Caching & sessions
 - **phpmyadmin** (phpMyAdmin latest, port 8801): Database management
@@ -45,7 +45,7 @@ docker-compose ps
 ```
 
 ### **PHP Configuration**
-- **Version**: PHP 8.4
+- **Version**: PHP 8.5
 - **Extensions**: MySQL, Redis, GD, XML, cURL, Xdebug, and 30+ more
 - **Tools**: Composer, Node.js 24, npm, yarn, pnpm
 - **Error Display**: Enabled for development
@@ -119,7 +119,7 @@ dev-container-2/
 │   ├── nginx.conf                # Main nginx configuration
 │   └── default                   # Site configuration
 ├── php-fpm/
-│   └── Dockerfile                # Custom PHP-FPM image (PHP 8.4)
+│   └── Dockerfile                # Custom PHP-FPM image (PHP 8.5)
 ├── src/                          # Your application code
 │   └── index.php                # Main application file
 ├── mysql-data/                   # Database persistence (auto-created)

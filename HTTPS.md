@@ -89,7 +89,7 @@ server {
 
     # PHP processing
     location ~ \.php$ {
-        fastcgi_pass unix:/run/php/php8.4-fpm.sock;
+        fastcgi_pass unix:/run/php/php8.5-fpm.sock;
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include fastcgi_params;
@@ -101,7 +101,7 @@ server {
         index index.php;
         
         location ~ ^/phpmyadmin/(.+\.php)$ {
-            fastcgi_pass unix:/run/php/php8.4-fpm.sock;
+            fastcgi_pass unix:/run/php/php8.5-fpm.sock;
             fastcgi_index index.php;
             fastcgi_param SCRIPT_FILENAME /var/www/html/phpmyadmin/$1;
             include fastcgi_params;

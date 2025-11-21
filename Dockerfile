@@ -29,46 +29,44 @@ RUN echo 'export PS1="🐳 dev $PS1"' >> ~/.zshrc
 # Set zsh as default shell
 RUN chsh -s $(which zsh)
 
-# PHP 8.4 & Extensions
+# PHP 8.5 & Extensions
 RUN add-apt-repository ppa:ondrej/php -y && \
     apt-get update && \
     apt-get install -y \
-    php8.4-fpm \
-    php8.4-cli \
-    php8.4-common \
-    php8.4-mysql \
-    php8.4-xml \
-    php8.4-xmlrpc \
-    php8.4-curl \
-    php8.4-gd \
-    php8.4-imagick \
-    php8.4-dev \
-    php8.4-imap \
-    php8.4-mbstring \
-    php8.4-opcache \
-    php8.4-soap \
-    php8.4-zip \
-    php8.4-intl \
-    php8.4-bcmath \
-    php8.4-gmp \
-    php8.4-pdo \
-    php8.4-sqlite3 \
-    php8.4-pgsql \
-    php8.4-redis
+    php8.5-fpm \
+    php8.5-cli \
+    php8.5-common \
+    php8.5-mysql \
+    php8.5-xml \
+    php8.5-curl \
+    php8.5-gd \
+#   php8.5-imagick \
+    php8.5-dev \
+#   php8.5-imap \
+    php8.5-mbstring \
+#   php8.5-opcache \
+    php8.5-soap \
+    php8.5-zip \
+    php8.5-intl \
+    php8.5-bcmath \
+    php8.5-gmp \
+    php8.5-sqlite3 \
+    php8.5-pgsql \
+    php8.5-redis
 
 # Configure PHP for development
-RUN echo "display_errors = On" > /etc/php/8.4/fpm/conf.d/99-development.ini && \
-    echo "display_startup_errors = On" >> /etc/php/8.4/fpm/conf.d/99-development.ini && \
-    echo "error_reporting = E_ALL" >> /etc/php/8.4/fpm/conf.d/99-development.ini && \
-    echo "log_errors = On" >> /etc/php/8.4/fpm/conf.d/99-development.ini && \
-    echo "html_errors = On" >> /etc/php/8.4/fpm/conf.d/99-development.ini && \
-    echo "opcache.revalidate_freq = 0" >> /etc/php/8.4/fpm/conf.d/99-development.ini && \
-    echo "opcache.validate_timestamps = 1" >> /etc/php/8.4/fpm/conf.d/99-development.ini && \
-    echo "max_execution_time = 300" >> /etc/php/8.4/fpm/conf.d/99-development.ini && \
-    echo "memory_limit = 512M" >> /etc/php/8.4/fpm/conf.d/99-development.ini
+RUN echo "display_errors = On" > /etc/php/8.5/fpm/conf.d/99-development.ini && \
+    echo "display_startup_errors = On" >> /etc/php/8.5/fpm/conf.d/99-development.ini && \
+    echo "error_reporting = E_ALL" >> /etc/php/8.5/fpm/conf.d/99-development.ini && \
+    echo "log_errors = On" >> /etc/php/8.5/fpm/conf.d/99-development.ini && \
+    echo "html_errors = On" >> /etc/php/8.5/fpm/conf.d/99-development.ini && \
+    echo "opcache.revalidate_freq = 0" >> /etc/php/8.5/fpm/conf.d/99-development.ini && \
+    echo "opcache.validate_timestamps = 1" >> /etc/php/8.5/fpm/conf.d/99-development.ini && \
+    echo "max_execution_time = 300" >> /etc/php/8.5/fpm/conf.d/99-development.ini && \
+    echo "memory_limit = 512M" >> /etc/php/8.5/fpm/conf.d/99-development.ini
 
 # Apply same settings to CLI PHP
-RUN cp /etc/php/8.4/fpm/conf.d/99-development.ini /etc/php/8.4/cli/conf.d/99-development.ini
+RUN cp /etc/php/8.5/fpm/conf.d/99-development.ini /etc/php/8.5/cli/conf.d/99-development.ini
 
 # composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
