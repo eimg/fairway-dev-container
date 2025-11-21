@@ -1,6 +1,6 @@
 {
 	"name": "Fairway PWD Dev Container",
-	"image": "fairway-pwd",
+	"image": "eimg/fairway-pwd",
 	"mounts": [
 		"source=${localWorkspaceFolder}/mysql-data,target=/mysql/data,type=bind",
 		"source=${localWorkspaceFolder}/redis-data,target=/redis/data,type=bind",

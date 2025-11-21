@@ -26,7 +26,7 @@ Use the pre-built image from Docker Hub:
 
 1. **Pull the image**:
    ```bash
-   docker pull fairway-pwd
+   docker pull eimg/fairway-pwd
    ```
 
 2. **Copy devcontainer config**:
@@ -80,7 +80,7 @@ docker build -t fairway-pwd .
         -v "$(pwd)/redis-data:/redis/data" \
         -v "gh-auth:/root/.config/gh" \
         -v "$HOME/.gitconfig:/root/.gitconfig" \
-        fairway-pwd
+        eimg/fairway-pwd
     ```
 
 3. **Access services**:
