@@ -58,7 +58,7 @@ For advanced users who prefer direct Docker commands:
 ### Build Image
 
 ```bash
-docker build -t fairway-pwd .
+docker build -t eimg/fairway-pwd .
 ```
 
 ### Run with Docker
