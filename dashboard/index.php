@@ -301,7 +301,7 @@ $redisStatus = checkRedisStatus();
     <div class="container">
         <header>
             <div class="header-title">🐳 Fairway Dev Container</div>
-            <div class="header-subtitle">Complete PHP & JavaScript Development Container - Perfect for learning, prototyping, and quick development</div>
+            <div class="header-subtitle">PHP-focused development container with Node for tooling — learning, prototyping, and day-to-day PHP work</div>
         </header>
 
         <div class="credentials">
@@ -359,7 +359,7 @@ $redisStatus = checkRedisStatus();
         <div class="service-item">
             <div>
                 <div class="service-name">PHP <span class="version-badge">8.5</span></div>
-                <div class="service-info">FastCGI Process Manager (imagick/imap/opcache temporarily disabled for multi-arch)</div>
+                <div class="service-info">FastCGI Process Manager</div>
             </div>
             <span class="status running">Running</span>
         </div>
@@ -522,24 +522,12 @@ $redisStatus = checkRedisStatus();
                         <div class="service-info">Web Server (mapped to 8800)</div>
                     </div>
                     <div class="port-item">
-                        <div class="port-number">8081</div>
-                        <div class="service-info">React Native Metro</div>
-                    </div>
-                    <div class="port-item">
-                        <div class="port-number">19000-19002</div>
-                        <div class="service-info">Expo DevTools</div>
-                    </div>
-                    <div class="port-item">
-                        <div class="port-number">8097</div>
-                        <div class="service-info">React Native Debugger</div>
-                    </div>
-                    <div class="port-item">
                         <div class="port-number">3000</div>
-                        <div class="service-info">Development Server</div>
+                        <div class="service-info">Optional app / dev server (publish from host if needed)</div>
                     </div>
                     <div class="port-item">
                         <div class="port-number">4000</div>
-                        <div class="service-info">Development Server (Alt)</div>
+                        <div class="service-info">Optional app / dev server (publish from host if needed)</div>
                     </div>
                 </div>
             </div>
@@ -585,26 +573,18 @@ $redisStatus = checkRedisStatus();
             </div>
 
             <div class="card">
-                <h2>⚛️ React Native & Expo</h2>
+                <h2>📦 Node alongside PHP</h2>
                 <div class="directory-item">
-                    <div class="directory-path">⚠️ Learning & Prototyping Only</div>
-                    <div class="directory-desc">This setup is primarily for quick start learning and prototyping. For production development builds, work directly on the host machine.</div>
+                    <div class="directory-path">Typical use</div>
+                    <div class="directory-desc">Install front-end dependencies, run Vite with Laravel (<code>npm run dev</code>), format with Prettier, or lint with ESLint — use project-local versions when your team standardizes on them.</div>
                 </div>
                 <div class="directory-item">
-                    <div class="directory-path">Network Configuration Required</div>
-                    <div class="directory-desc">Set REACT_NATIVE_PACKAGER_HOSTNAME to your host IP address</div>
+                    <div class="directory-path">Package managers</div>
+                    <div class="directory-desc">npm, yarn, and pnpm are available for the same project tree as your PHP app.</div>
                 </div>
                 <div class="directory-item">
-                    <div class="directory-path">Get Host IP (macOS)</div>
-                    <div class="directory-desc">ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}'</div>
-                </div>
-                <div class="directory-item">
-                    <div class="directory-path">Get Host IP (Windows)</div>
-                    <div class="directory-desc">ipconfig | findstr "IPv4"</div>
-                </div>
-                <div class="directory-item">
-                    <div class="directory-path">Export in Container</div>
-                    <div class="directory-desc nowrap">export REACT_NATIVE_PACKAGER_HOSTNAME=192.168.1.100</div>
+                    <div class="directory-path">Extra ports</div>
+                    <div class="directory-desc">Publish <code>3000</code> / <code>4000</code> (or your Vite port) from the host when you need browser access to a dev server running in the container.</div>
                 </div>
             </div>
         </div>

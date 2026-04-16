@@ -53,15 +53,27 @@
 		"ghcr.io/devcontainers/features/git:1": {},
 		"ghcr.io/devcontainers/features/github-cli:1": {}
 	},
-	"forwardPorts": [8800, 8801],
+	"forwardPorts": [8800, 8801, 3000, 4000, 5173],
 	"portsAttributes": {
 		"8800": {
-			"label": "Web Application",
+			"label": "Web application",
 			"onAutoForward": "notify"
 		},
 		"8801": {
 			"label": "phpMyAdmin",
 			"onAutoForward": "silent"
+		},
+		"3000": {
+			"label": "Dev server",
+			"onAutoForward": "notify"
+		},
+		"4000": {
+			"label": "Dev server (alt)",
+			"onAutoForward": "notify"
+		},
+		"5173": {
+			"label": "Vite (default)",
+			"onAutoForward": "notify"
 		}
 	},
 	"postCreateCommand": "composer --version && php --version && node --version",

@@ -1,14 +1,16 @@
 # PHP Development Environment with Docker
 
-A complete PHP development stack with nginx, PHP-FPM, MySQL, Redis, and phpMyAdmin, optimized for modern PHP development with optional VS Code dev container integration.
+A complete **PHP-first** stack (nginx, PHP-FPM, MySQL, Redis, phpMyAdmin) with **Node 24** in the PHP container for npm/yarn/pnpm — asset builds, Laravel Vite, and similar tooling — not a mobile or full-stack JavaScript platform. Optional VS Code Dev Container integration is included.
 
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Docker & Docker Compose
 - VS Code with Dev Containers extension (optional)
 
 ### Start Development Environment
+
 ```bash
 # Start all services
 docker-compose up -d
@@ -18,8 +20,9 @@ docker-compose ps
 ```
 
 **Access Your Application:**
-- **Web Application**: http://localhost:8800
-- **phpMyAdmin**: http://localhost:8801
+
+- **Web Application**: [http://localhost:8800](http://localhost:8800)
+- **phpMyAdmin**: [http://localhost:8801](http://localhost:8801)
 
 ## 📋 Services Overview
 
@@ -32,12 +35,14 @@ docker-compose ps
 ## 🐳 Docker Architecture
 
 ### **Container Communication**
+
 - **nginx** ↔ **php-fpm** via TCP (port 9000)
 - **php-fpm** ↔ **mysql** via hostname `mysql:3306`
 - **php-fpm** ↔ **redis** via hostname `redis:6379`
 - **phpmyadmin** ↔ **mysql** via hostname `mysql:3306`
 
 ### **Data Persistence**
+
 ```
 ./src/         → /var/www/html     # Application code
 ./mysql-data/  → /var/lib/mysql    # Database files
@@ -45,9 +50,10 @@ docker-compose ps
 ```
 
 ### **PHP Configuration**
+
 - **Version**: PHP 8.5
-- **Extensions**: MySQL, Redis, GD, XML, cURL, Xdebug, and 30+ more
-- **Tools**: Composer, Node.js 24, npm, yarn, pnpm
+- **Extensions**: Common extensions for PHP web development
+- **Tools**: Composer; Node.js 24 with npm, yarn, pnpm; global CLIs (`nodemon`, `ts-node`, `typescript`, `http-server`, `prettier`, `eslint`) for quick tasks — prefer local packages in real projects
 - **Error Display**: Enabled for development
 - **Xdebug**: Available for debugging
 
@@ -74,6 +80,7 @@ docker-compose down
 ```
 
 **Characteristics:**
+
 - Containers run in background
 - Edit files on host system
 - Access containers via `docker-compose exec`
@@ -91,6 +98,7 @@ Full IDE integration with VS Code running inside the PHP container.
 ```
 
 **What You Get:**
+
 - **VS Code runs inside PHP container**
 - **Pre-installed extensions**: PHP tools, Xdebug, MySQL, Git
 - **Integrated terminal** in container environment
@@ -100,6 +108,7 @@ Full IDE integration with VS Code running inside the PHP container.
 - **GitHub CLI (gh)** pre-installed for repository management
 
 **Auto-Installed Extensions:**
+
 - **PHP & Laravel**: Intelephense, Laravel Extra IntelliSense, Laravel Blade, Laravel Blade Spacer
 - **Frontend**: Tailwind CSS, Auto Rename Tag, Path IntelliSense
 - **Code Quality**: Prettier
@@ -109,7 +118,7 @@ Full IDE integration with VS Code running inside the PHP container.
 ## 📁 Project Structure
 
 ```
-dev-container-2/
+with-compose/
 ├── docker-compose.yml              # Main service definitions
 ├── .devcontainer/
 │   ├── devcontainer.json          # VS Code dev container config
@@ -130,6 +139,7 @@ dev-container-2/
 ## 🔧 Common Development Tasks
 
 ### **PHP Development**
+
 ```bash
 # Install dependencies
 docker-compose exec php-fpm composer install
@@ -142,6 +152,7 @@ docker-compose exec php-fpm php -i
 ```
 
 ### **Database Operations**
+
 ```bash
 # Access MySQL CLI
 docker-compose exec mysql mysql -u root -p
@@ -153,7 +164,10 @@ docker-compose exec -T mysql mysql -u root -proot database_name < backup.sql
 docker-compose exec mysql mysqldump -u root -proot database_name > backup.sql
 ```
 
-### **Frontend Development**
+### **Node / front-end (alongside PHP)**
+
+Use the **php-fpm** service for anything that needs Node in the same tree as your PHP app (Laravel Vite, Mix, etc.):
+
 ```bash
 # Install Node packages
 docker-compose exec php-fpm npm install
@@ -165,12 +179,18 @@ docker-compose exec php-fpm npm run build
 docker-compose exec php-fpm npm run watch
 ```
 
+### **Vite (e.g. Laravel)**
+
+Expose the dev server to your host browser: **php-fpm** publishes **3000**, **4000**, and **5173** (Vite’s default) to the same ports on localhost. In `vite.config.js` use `server.host: "0.0.0.0"` so the process listens on all interfaces inside the container.
+
 ## 🐛 Debugging
 
 ### **PHP Error Display**
+
 Errors are displayed directly in the browser with detailed Xdebug formatting.
 
 ### **Log Files**
+
 ```bash
 # PHP-FPM logs
 docker-compose logs php-fpm
@@ -183,6 +203,7 @@ docker-compose logs mysql
 ```
 
 ### **Xdebug (Dev Container Mode)**
+
 - **Port**: 9003
 - **IDE Key**: Automatically configured
 - **Step debugging**: Ready to use in VS Code
@@ -190,11 +211,13 @@ docker-compose logs mysql
 ## 🚨 Troubleshooting
 
 ### **Database Connection Errors**
+
 - **Host**: Use `mysql` (not `localhost`)
 - **Credentials**: root/root
 - **Check**: `docker-compose logs mysql`
 
 ### **File Permission Issues**
+
 ```bash
 # Fix permissions
 sudo chown -R $USER:$USER src/
@@ -203,16 +226,20 @@ sudo chown -R $USER:$USER src/
 ## ⚙️ Configuration
 
 ### **Environment Variables**
+
 - `MYSQL_ROOT_PASSWORD`: MySQL root password (default: root)
 - `PMA_HOST`: phpMyAdmin MySQL host (default: mysql)
 
-### **Port Mapping**
-- nginx: Port 80 → 8800 (http://localhost:8800)
-- phpMyAdmin: Port 80 → 8801 (http://localhost:8801)
+### **Port mapping**
+
+- **nginx**: container `80` → host **8800** ([http://localhost:8800](http://localhost:8800))
+- **phpMyAdmin**: container `80` → host **8801** ([http://localhost:8801](http://localhost:8801))
+- **php-fpm** (optional dev servers / Vite): host **3000**, **4000**, **5173** → same ports in the container (publish only what you need, or adjust in `docker-compose.yml`)
 
 ## 🔄 Switching Between Modes
 
 Both modes use the same:
+
 - Database files (`mysql-data/`)
 - Application code (`src/`)
 - Redis data (`redis-data/`)

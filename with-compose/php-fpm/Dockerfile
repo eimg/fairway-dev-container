@@ -19,6 +19,7 @@ RUN apt-get update && apt-get upgrade -y && \
     libnss3-tools
 
 # PHP 8.5 & Extensions
+# OPcache ships with PHP 8.5 (no separate apt package).
 RUN add-apt-repository ppa:ondrej/php -y && \
     apt-get update && \
     apt-get install -y \
@@ -29,11 +30,10 @@ RUN add-apt-repository ppa:ondrej/php -y && \
     php8.5-xml \
     php8.5-curl \
     php8.5-gd \
-#   php8.5-imagick \
+    php8.5-imagick \
     php8.5-dev \
-#   php8.5-imap \
+    php8.5-imap \
     php8.5-mbstring \
-#   php8.5-opcache \
     php8.5-soap \
     php8.5-zip \
     php8.5-intl \

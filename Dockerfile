@@ -30,6 +30,7 @@ RUN echo 'export PS1="🐳 dev $PS1"' >> ~/.zshrc
 RUN chsh -s $(which zsh)
 
 # PHP 8.5 & Extensions
+# OPcache ships with PHP 8.5 (no separate apt package); ini below tunes it for dev.
 RUN add-apt-repository ppa:ondrej/php -y && \
     apt-get update && \
     apt-get install -y \
@@ -40,11 +41,10 @@ RUN add-apt-repository ppa:ondrej/php -y && \
     php8.5-xml \
     php8.5-curl \
     php8.5-gd \
-#   php8.5-imagick \
+    php8.5-imagick \
     php8.5-dev \
-#   php8.5-imap \
+    php8.5-imap \
     php8.5-mbstring \
-#   php8.5-opcache \
     php8.5-soap \
     php8.5-zip \
     php8.5-intl \
@@ -82,11 +82,6 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | d
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
     && apt-get update \
     && apt-get install gh -y
-
-# React Native & Expo Environment Variables
-ENV EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
-ENV REACT_NATIVE_PACKAGER_HOSTNAME=0.0.0.0
-ENV EXPO_CLI_NO_INSTALL_DEPENDENCIES=1
 
 # Nginx
 RUN apt-get install -y nginx
@@ -175,11 +170,8 @@ RUN chmod +x /usr/local/bin/service-setup.sh
 COPY scripts/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Expose ports for web (HTTP)
-EXPOSE 80
-
-# Expose React Native & Expo ports
-EXPOSE 8081 19000 19001 19002 8097 4000 3000
+# Web + common dev server ports (map from host as needed)
+EXPOSE 80 3000 4000
 
 # Set the working directory
 WORKDIR /app
